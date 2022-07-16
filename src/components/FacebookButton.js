@@ -1,4 +1,10 @@
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import {
+  borderBlue,
+  buttonFontSize,
+  marginHorizontal,
+  textBlue,
+} from "../utils/Constants";
 
 const FacebookButton = (props) => {
   const onPress = () => {};
@@ -13,17 +19,17 @@ const styles = StyleSheet.create({
   button: {
     alignItems: "center",
     padding: 10,
-    marginHorizontal: 30,
+    marginHorizontal: marginHorizontal,
     alignSelf: "stretch",
-    borderColor: "#4098ff",
+    borderColor: borderBlue,
     borderRadius: 1,
     borderWidth: 1.5,
     backgroundColor: "transparent",
   },
   text: {
     fontWeight: "500",
-    fontSize: 15,
-    color: "#2153ff",
+    fontSize: buttonFontSize,
+    color: textBlue,
   },
 });
 
