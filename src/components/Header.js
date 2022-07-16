@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { black, marginHorizontal, marginVertical } from "../Constants";
+import { black, marginHorizontal, marginVertical } from "../utils/Constants";
 
 const Header = (props) => {
   return (
@@ -18,6 +18,7 @@ const styles = StyleSheet.create({
     color: black,
     fontSize: 34,
     fontWeight: "bold",
+    // marginTop: 100,
   },
 });
 

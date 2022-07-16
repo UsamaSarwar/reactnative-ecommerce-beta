@@ -1,5 +1,10 @@
 import { StyleSheet, Text, View } from "react-native";
-import { black, marginHorizontal, smallFontSize, textBlue } from "../Constants";
+import {
+  black,
+  marginHorizontal,
+  smallFontSize,
+  textBlue,
+} from "../utils/Constants";
 
 const Footer = (props) => {
   return (

@@ -3,8 +3,8 @@ export const marginHorizontal = 40;
 export const buttonFontSize = 16;
 export const marginVertical = 20;
 export const smallFontSize = 20;
-//color
 
+//color
 export const peach = "#F9C678";
 export const red = "#FF2D55";
 export const black = "#242A37";
