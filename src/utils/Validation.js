@@ -10,7 +10,9 @@ const validateEmail = (text) => {
   }
 };
 
-const validatePhone = (text) => {};
+const validatePhone = (text) => {
+  return [false, ""];
+};
 
 const validateEmpty = (text) => {
   if (text != "") {

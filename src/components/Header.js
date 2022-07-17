@@ -4,17 +4,21 @@ import { black, marginHorizontal, marginVertical } from "../utils/Constants";
 
 const Header = (props) => {
   return (
-    <View>
+    <View style={styles.container}>
       <Text style={styles.heading}>{props.content}</Text>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 2,
+    justifyContent: "flex-end",
+  },
   heading: {
     marginHorizontal: marginHorizontal,
     marginVertical: marginVertical,
-    alignSelf: "stretch",
+    alignSelf: "center",
     color: black,
     fontSize: 34,
     fontWeight: "bold",

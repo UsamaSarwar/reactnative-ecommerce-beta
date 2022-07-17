@@ -7,18 +7,14 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import {
-  black,
-  grey,
-  marginHorizontal,
-  marginVertical,
-} from "../utils/Constants";
+import { black, grey, marginHorizontal } from "../utils/Constants";
 import validateText from "../utils/Validation";
 
 const CustomTextInput = (props) => {
   const [text, setText] = useState("");
   const [error, setError] = useState(false);
   const [isPassword, setIsPassword] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
   const [isSecureEntry, setIsSecureEntry] = useState(false);
   const [errorText, setErrorText] = useState("*This field is required");
 
@@ -46,6 +42,7 @@ const CustomTextInput = (props) => {
 
   return (
     <View style={styles.container}>
+      {/* <Text style={styles.placeholderText}>{props.type}</Text> */}
       <View style={styles.eyeContainer}>
         <TextInput
           style={[
@@ -83,6 +80,7 @@ const CustomTextInput = (props) => {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
@@ -91,7 +89,6 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     color: black,
-    marginTop: marginVertical,
     marginLeft: marginHorizontal,
     paddingBottom: 5,
     fontSize: 16,
@@ -101,10 +98,16 @@ const styles = StyleSheet.create({
   inputError: {
     borderBottomColor: "red",
   },
+  placeholderText: {
+    color: grey,
+    marginLeft: marginHorizontal,
+    alignSelf: "flex-start",
+    backgroundColor: "black",
+  },
   error: {
     alignSelf: "flex-start",
     color: "red",
-    marginVertical: 5,
+    marginTop: 5,
     marginHorizontal: marginHorizontal,
   },
   eye: {
