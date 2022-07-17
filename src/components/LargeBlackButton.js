@@ -1,4 +1,4 @@
-import { Button, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import {
   black,
   marginHorizontal,
@@ -11,10 +11,15 @@ const LargeBlackButton = (props) => {
   const navigation = useNavigation();
 
   const onPress = () => {
-    if (props.changeTo == "goBack") {
-      navigation.goBack();
+    if (props.isValid) {
+      if (props.changeTo == "goBack") {
+        navigation.goBack();
+      } else {
+        console.log(props.isValid);
+        navigation.navigate(props.changeTo);
+      }
     } else {
-      navigation.navigate(props.changeTo);
+      props.setError(true);
     }
   };
 
@@ -27,7 +32,7 @@ const LargeBlackButton = (props) => {
 
 const styles = StyleSheet.create({
   btn: {
-    flex: 0.5,
+    height: 50,
     justifyContent: "center",
     marginTop: marginVertical,
     alignItems: "center",

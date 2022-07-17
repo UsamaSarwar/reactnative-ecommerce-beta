@@ -1,13 +1,19 @@
 import { FontAwesome5 } from "@expo/vector-icons";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
+  Animated,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
-import { black, grey, marginHorizontal } from "../utils/Constants";
+import {
+  black,
+  grey,
+  marginHorizontal,
+  marginVertical,
+} from "../utils/Constants";
 import validateText from "../utils/Validation";
 
 const CustomTextInput = (props) => {
@@ -18,22 +24,44 @@ const CustomTextInput = (props) => {
   const [isSecureEntry, setIsSecureEntry] = useState(false);
   const [errorText, setErrorText] = useState("*This field is required");
 
+  const anim = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    Animated.timing(anim, {
+      toValue: isFocused ? 1 : 0,
+      duration: 200,
+      useNativeDriver: false,
+    }).start();
+  }, [isFocused]);
+
   useEffect(() => {
     if (props.type.toLowerCase() === "password") {
-      console.log("GREAT");
       setIsPassword(true);
       setIsSecureEntry(true);
     }
   }, []);
 
+  useEffect(() => {
+    setError(props.error);
+  }, [props.error]);
+
   const onBlur = () => {
+    if (text === "") {
+      setIsFocused(false);
+    }
+
     if (props.required) {
       let result = validateText(text, props.type);
+      props.setIsValid(!result[0]);
       setError(result[0]);
       setErrorText(result[1]);
     }
 
     console.log("Focus Lost");
+  };
+
+  const onFocus = () => {
+    setIsFocused(true);
   };
 
   const onChange = (e) => {
@@ -42,7 +70,31 @@ const CustomTextInput = (props) => {
 
   return (
     <View style={styles.container}>
-      {/* <Text style={styles.placeholderText}>{props.type}</Text> */}
+      <Animated.Text
+        style={[
+          styles.placeholderText,
+          {
+            top: anim.interpolate({
+              inputRange: [0, 1],
+              outputRange: [25, 0],
+            }),
+            left: anim.interpolate({
+              inputRange: [0, 1],
+              outputRange: [4, 2],
+            }),
+            fontSize: anim.interpolate({
+              inputRange: [0, 1],
+              outputRange: [20, 14],
+            }),
+            color: anim.interpolate({
+              inputRange: [0, 1],
+              outputRange: [grey, "black"],
+            }),
+          },
+        ]}
+      >
+        {props.type}
+      </Animated.Text>
       <View style={styles.eyeContainer}>
         <TextInput
           style={[
@@ -52,10 +104,10 @@ const CustomTextInput = (props) => {
           ]}
           value={text}
           placeholderTextColor="#afafaf"
-          placeholder={props.type}
           onBlur={onBlur}
           onChange={onChange}
           secureTextEntry={isSecureEntry}
+          onFocus={onFocus}
         />
         {isPassword && (
           <View style={[styles.eye, error && styles.inputError]}>
@@ -81,6 +133,7 @@ const CustomTextInput = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginVertical: marginVertical,
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
@@ -92,6 +145,7 @@ const styles = StyleSheet.create({
     marginLeft: marginHorizontal,
     paddingBottom: 5,
     fontSize: 16,
+    paddingLeft: 5,
     borderBottomWidth: 0.5,
     borderBottomColor: grey,
   },
@@ -102,8 +156,8 @@ const styles = StyleSheet.create({
     color: grey,
     marginLeft: marginHorizontal,
     alignSelf: "flex-start",
-    backgroundColor: "black",
   },
+
   error: {
     alignSelf: "flex-start",
     color: "red",
