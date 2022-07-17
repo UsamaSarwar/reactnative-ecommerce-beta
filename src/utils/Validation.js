@@ -11,6 +11,12 @@ const validateEmail = (text) => {
 };
 
 const validatePhone = (text) => {
+  if (isNaN(text)) {
+    return [true, "Not a valid number"];
+  }
+  if (!text.match("[0-9]{11}")) {
+    return [true, "Length should be equal to 11"];
+  }
   return [false, ""];
 };
 

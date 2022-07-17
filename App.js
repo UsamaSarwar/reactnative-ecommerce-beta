@@ -2,7 +2,10 @@
 import "react-native-gesture-handler";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
+import {
+  createStackNavigator,
+  TransitionPresets,
+} from "@react-navigation/stack";
 
 // Pages
 import Login from "./src/pages/Login";
@@ -18,7 +21,12 @@ export default function App() {
       <NavigationContainer>
         <Stack.Navigator
           initialRouteName="Login"
-          screenOptions={{ headerShown: false }}
+          screenOptions={{
+            headerShown: false,
+            gestureEnabled: true,
+            gestureDirection: "horizontal",
+            ...TransitionPresets.SlideFromRightIOS,
+          }}
         >
           <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
           <Stack.Screen name="Login" component={Login} />
@@ -33,11 +41,5 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-
-    // backgroundColor: "blue",
-    // height: "100%",
-    // width: "100%",
-    // alignItems: "stretch",
-    // justifyContent: "space-evenly",
   },
 });

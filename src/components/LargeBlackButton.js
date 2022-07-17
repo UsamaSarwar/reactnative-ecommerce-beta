@@ -1,4 +1,12 @@
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import {
+  Button,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  ToastAndroid,
+  Alert,
+} from "react-native";
 import {
   black,
   marginHorizontal,
@@ -13,6 +21,9 @@ const LargeBlackButton = (props) => {
   const onPress = () => {
     if (props.isValid) {
       if (props.changeTo == "goBack") {
+        if (props.btnText == "Sign Up") {
+          Alert.alert("New account created");
+        }
         navigation.goBack();
       } else {
         console.log(props.isValid);
