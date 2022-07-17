@@ -5,7 +5,6 @@ import {
   marginHorizontal,
   marginVertical,
   smallFontSize,
-  textBlue,
 } from "../utils/Constants";
 
 const Footer = (props) => {
@@ -17,6 +16,10 @@ const Footer = (props) => {
     }
     if (props.link == "Sign In") {
       navigation.goBack();
+    }
+
+    if (props.link == "Forgot your password?") {
+      navigation.navigate("ForgotPassword");
     }
   };
 
@@ -37,7 +40,7 @@ const styles = StyleSheet.create({
     flex: 1.5,
     justifyContent: "flex-end",
     marginBottom: marginVertical,
-    alignSelf: "stretch",
+    alignSelf: "center",
   },
   text: {
     marginHorizontal: marginHorizontal,

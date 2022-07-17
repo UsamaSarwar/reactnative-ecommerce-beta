@@ -1,10 +1,4 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native";
-import Footer from "../components/Footer";
-import Header from "../components/Header";
-import LargeBlackButton from "../components/LargeBlackButton";
-import CustomTextInput from "../components/CustomTextInput";
-import FacebookButton from "../components/FacebookButton";
-import PasswordComponent from "../components/PasswordComponent";
+import { StyleSheet, Text, View } from "react-native";
 
 const HomePage = () => {
   return (
@@ -22,6 +16,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
+    alignItems: "center",
   },
 });
 

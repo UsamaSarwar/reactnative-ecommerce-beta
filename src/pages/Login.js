@@ -1,16 +1,19 @@
-import { ScrollView, StyleSheet, View } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import LargeBlackButton from "../components/LargeBlackButton";
 import CustomTextInput from "../components/CustomTextInput";
 import FacebookButton from "../components/FacebookButton";
 import { useEffect, useState } from "react";
+import { useNavigation } from "@react-navigation/native";
+import { black, marginVertical, smallFontSize } from "../utils/Constants";
 
-const Login = ({ navigation }) => {
+const Login = () => {
   const [isValid, setIsValid] = useState(false);
   const [isPasswordValid, setIsPasswordValid] = useState(false);
   const [isEmailValid, setIsEmailValid] = useState(false);
   const [error, setError] = useState(false);
+  const navigation = useNavigation();
 
   useEffect(() => {
     if (isPasswordValid && isEmailValid) {
@@ -19,6 +22,10 @@ const Login = ({ navigation }) => {
       setIsValid(false);
     }
   }, [isPasswordValid, isEmailValid]);
+
+  const onPress = () => {
+    navigation.navigate("ForgotPassword");
+  };
 
   return (
     <View style={styles.container}>
@@ -41,7 +48,9 @@ const Login = ({ navigation }) => {
         changeTo="HomePage"
         setError={setError}
       />
-      <Footer content="Forgot your password?" link="" />
+      <Text onPress={onPress} style={styles.link}>
+        Forgot your password?
+      </Text>
       <FacebookButton />
       <Footer content="Don't have an account? " link="Sign Up" />
     </View>
@@ -57,6 +66,14 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     justifyContent: "space-evenly",
+  },
+  link: {
+    alignSelf: "center",
+    fontSize: smallFontSize,
+    marginVertical: marginVertical,
+    textDecorationLine: "underline",
+    color: black,
+    flex: 2,
   },
 });
 

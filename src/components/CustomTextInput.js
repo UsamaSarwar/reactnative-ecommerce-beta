@@ -56,8 +56,6 @@ const CustomTextInput = (props) => {
       setError(result[0]);
       setErrorText(result[1]);
     }
-
-    console.log("Focus Lost");
   };
 
   const onFocus = () => {

@@ -1,14 +1,7 @@
-import {
-  Button,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  ToastAndroid,
-  Alert,
-} from "react-native";
+import { StyleSheet, Text, TouchableOpacity, Alert } from "react-native";
 import {
   black,
+  buttonFontSize,
   marginHorizontal,
   marginVertical,
   smallFontSize,
@@ -54,7 +47,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontWeight: "500",
-    fontSize: smallFontSize,
+    fontSize: buttonFontSize,
     color: "#ffffff",
   },
 });

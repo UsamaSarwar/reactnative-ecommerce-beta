@@ -1,8 +1,8 @@
 // Static common values for layouts
 export const marginHorizontal = 40;
-export const buttonFontSize = 16;
+export const buttonFontSize = 18;
 export const marginVertical = 20;
-export const smallFontSize = 20;
+export const smallFontSize = 16;
 
 //color
 export const peach = "#F9C678";
