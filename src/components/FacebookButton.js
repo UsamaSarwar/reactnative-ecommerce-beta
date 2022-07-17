@@ -5,9 +5,14 @@ import {
   marginHorizontal,
   textBlue,
 } from "../utils/Constants";
+import { useNavigation } from "@react-navigation/native";
 
 const FacebookButton = (props) => {
-  const onPress = () => {};
+  const navigation = useNavigation();
+
+  const onPress = () => {
+    navigation.navigate("HomePage");
+  };
   return (
     <TouchableOpacity style={styles.button} onPress={onPress}>
       <Text style={styles.text}>LOGIN FROM FACEBOOK</Text>

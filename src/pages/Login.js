@@ -6,16 +6,13 @@ import CustomTextInput from "../components/CustomTextInput";
 import FacebookButton from "../components/FacebookButton";
 import PasswordComponent from "../components/PasswordComponent";
 
-const Login = () => {
+const Login = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Header content="Login" />
       <CustomTextInput type="Email" required={true} />
-      {/* <TextInputField placeholderText="Password" /> */}
-      {/* <PasswordComponent /> */}
-      <CustomTextInput type="Email" required={true} />
-
-      <LargeBlackButton btnText="LOGIN" />
+      <CustomTextInput type="Password" required={true} />
+      <LargeBlackButton btnText="LOGIN" changeTo="HomePage" />
       <Footer content="Forgot your password?" link="" />
       <FacebookButton />
       <Footer content="Don't have an account? " link="Sign Up" />
@@ -29,14 +26,8 @@ const styles = StyleSheet.create({
   },
 
   container: {
-    // flex: 1,
-    backgroundColor: "#ffffff",
-    height: "100%",
-    width: "100%",
+    flex: 1,
     flexDirection: "column",
-
-    alignItems: "flex-start",
-    // backgroundColor: "red",
     justifyContent: "space-evenly",
   },
 });

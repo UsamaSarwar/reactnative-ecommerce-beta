@@ -1,8 +1,22 @@
 import { Button, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { black, marginHorizontal, smallFontSize } from "../utils/Constants";
+import {
+  black,
+  marginHorizontal,
+  marginVertical,
+  smallFontSize,
+} from "../utils/Constants";
+import { useNavigation } from "@react-navigation/native";
 
 const LargeBlackButton = (props) => {
-  const onPress = () => {};
+  const navigation = useNavigation();
+
+  const onPress = () => {
+    if (props.changeTo == "goBack") {
+      navigation.goBack();
+    } else {
+      navigation.navigate(props.changeTo);
+    }
+  };
 
   return (
     <TouchableOpacity style={styles.btn} onPress={onPress}>
@@ -13,11 +27,12 @@ const LargeBlackButton = (props) => {
 
 const styles = StyleSheet.create({
   btn: {
+    flex: 0.5,
+    justifyContent: "center",
+    marginTop: marginVertical,
     alignItems: "center",
     marginHorizontal: marginHorizontal,
-    alignSelf: "stretch",
     backgroundColor: black,
-    padding: 10,
     borderWidth: 1.5,
     borderRadius: 3,
   },

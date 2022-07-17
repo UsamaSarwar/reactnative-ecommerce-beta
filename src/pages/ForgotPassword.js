@@ -2,18 +2,18 @@ import { StyleSheet, View } from "react-native";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import LargeBlackButton from "../components/LargeBlackButton";
-import TextInputField from "../components/TextInputField";
+import CustomTextInput from "../components/CustomTextInput";
 
 const ForgotPassword = () => {
   return (
     <View style={styles.container}>
-      <Header content="Login" />
-      <TextInputField placeholderText="Email" />
-      <TextInputField placeholderText="password" />
-      <LargeBlackButton btnText="LOGIN" />
-      <Footer content="Forgot your password?" link="" />
-      <FacebookButton />
-      <Footer content="Don't have an account? " link="Sign Up" />
+      <Header content="Forgot password" />
+      <Footer
+        content="Please enter your email address. You will receive a link you will receive a link to create a new password via email"
+        link=""
+      />
+      <CustomTextInput type="Email" required={true} />
+      <LargeBlackButton btnText="Send" />
     </View>
   );
 };
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    alignItems: "center",
+    // alignItems: "center",
     justifyContent: "space-evenly",
   },
 });

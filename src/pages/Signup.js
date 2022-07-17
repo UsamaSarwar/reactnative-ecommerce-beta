@@ -13,7 +13,7 @@ const Signup = () => {
       <CustomTextInput type="Phone" required={true}></CustomTextInput>
       <CustomTextInput type="Date of birth" required={true}></CustomTextInput>
       <CustomTextInput type="Address" required={true}></CustomTextInput>
-      <LargeBlackButton btnText="Sign Up"></LargeBlackButton>
+      <LargeBlackButton btnText="Sign Up" changeTo="goBack"></LargeBlackButton>
       <Footer content="Already have an account?" link="Sign In"></Footer>
     </View>
   );
