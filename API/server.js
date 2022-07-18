@@ -2,13 +2,13 @@ import express from "express";
 import mongoose from "mongoose";
 import * as dotenv from "dotenv";
 
-// import userRoute from "./routes/user.js";
+import userRoute from "./routes/user.js";
 
 const app = express();
 const port = process.env.PORT || 8000;
 
 dotenv.config();
-// app.use("/user", userRoute);
+app.use("/user", userRoute);
 
 mongoose.connect(process.env.URI, { useNewUrlParser: true });
 const db = mongoose.connection;
