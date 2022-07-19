@@ -26,8 +26,34 @@ export const signUp = async (req, res) => {
   }
 };
 
-export const signIn = (req, res) => {};
+export const signIn = async (req, res) => {};
 
-export const updatePassword = (req, res) => {};
+export const updatePassword = async (req, res) => {
+  // needs to be login earlier
+  // check if the the pervious password entered is correct or not
+  try {
+    let prevPassword = user.password;
+    let isPasswordCorrect = await bcrypt.compare(req.password, prevPassword);
+    if (isPasswordCorrect) {
+      // change the database to new password
+      // expecting front end to validate either the password is empty
+      user.$where({});
+    } else {
+      res.status(401).json({
+        header: { message: "incorrect password enterd" },
+        body: {},
+      });
+    }
+  } catch (err) {
+    res.status(418).json({
+      header: { message: err.message },
+      body: {},
+    });
+  }
+};
 
-export const deleteAccount = (req, res) => {};
+export const deleteAccount = async (req, res) => {
+  // validate token
+  // check is password is correct
+  // delete account from database
+};
