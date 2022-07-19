@@ -8,6 +8,7 @@ const app = express();
 const port = process.env.PORT || 8000;
 
 dotenv.config();
+app.use(express.json());
 app.use("/user", userRoute);
 
 mongoose.connect(process.env.URI, { useNewUrlParser: true });
