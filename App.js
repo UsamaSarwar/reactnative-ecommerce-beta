@@ -15,7 +15,7 @@ import HomePage from "./src/pages/HomePage";
 
 const Stack = createStackNavigator();
 
-export default function App() {
+const App = () => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <NavigationContainer>
@@ -36,10 +36,12 @@ export default function App() {
       </NavigationContainer>
     </ScrollView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
 });
+
+export default App;
