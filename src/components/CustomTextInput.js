@@ -16,7 +16,15 @@ import {
 } from "../utils/Constants";
 import validateText from "../utils/Validation";
 
-const CustomTextInput = (props) => {
+const CustomTextInput = ({
+  toggleError,
+  required,
+  type,
+  setIsValid,
+  setReqData,
+  reqData,
+  placeholderText,
+}) => {
   const [text, setText] = useState("");
   const [error, setError] = useState(false);
   const [isPassword, setIsPassword] = useState(false);
@@ -35,26 +43,42 @@ const CustomTextInput = (props) => {
   }, [isFocused]);
 
   useEffect(() => {
-    if (props.type.toLowerCase() === "password") {
+    if (type.toLowerCase() === "password") {
       setIsPassword(true);
       setIsSecureEntry(true);
     }
   }, []);
 
   useEffect(() => {
-    setError(props.error);
-  }, [props.error]);
+    if (toggleError) {
+      let result = validateText(text, type);
+      setError(result[0]);
+      setErrorText(result[1]);
+    }
+  }, [toggleError]);
 
   const onBlur = () => {
     if (text === "") {
       setIsFocused(false);
     }
 
-    if (props.required) {
-      let result = validateText(text, props.type);
-      props.setIsValid(!result[0]);
+    if (required) {
+      let result = validateText(text, type);
+      if (!result[0]) {
+        if (type != "Date of birth") {
+          let temp = {};
+          temp[type.toLowerCase()] = text;
+          setReqData({ ...reqData, ...temp });
+        } else {
+          let temp = {};
+          temp.dob = text;
+          setReqData({ ...reqData, ...temp });
+        }
+      }
+      setIsValid(!result[0]);
       setError(result[0]);
       setErrorText(result[1]);
+    } else {
     }
   };
 
@@ -91,7 +115,7 @@ const CustomTextInput = (props) => {
           },
         ]}
       >
-        {props.type}
+        {type}
       </Animated.Text>
       <View style={styles.eyeContainer}>
         <TextInput

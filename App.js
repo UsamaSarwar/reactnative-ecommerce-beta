@@ -12,10 +12,21 @@ import Login from "./src/pages/Login";
 import ForgotPassword from "./src/pages/ForgotPassword";
 import Signup from "./src/pages/Signup";
 import HomePage from "./src/pages/HomePage";
+import { useEffect, useState } from "react";
 
 const Stack = createStackNavigator();
 
 const App = () => {
+  const [data, setData] = useState({});
+  const [token, setToken] = useState();
+
+  useEffect(() => {
+    if (data.body) {
+      if (data.body.token) {
+        setToken(data.body.token);
+      }
+    }
+  }, [data]);
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <NavigationContainer>
@@ -28,10 +39,16 @@ const App = () => {
             ...TransitionPresets.SlideFromRightIOS,
           }}
         >
-          <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
-          <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen name="Signup" component={Signup} />
-          <Stack.Screen name="HomePage" component={HomePage} />
+          <Stack.Screen
+            name="ForgotPassword"
+            token={token}
+            component={ForgotPassword}
+          />
+          <Stack.Screen name="Login">
+            {(props) => <Login {...props} setData={setData} />}
+          </Stack.Screen>
+          <Stack.Screen name="Signup" component={Signup}></Stack.Screen>
+          <Stack.Screen name="HomePage" token={token} component={HomePage} />
         </Stack.Navigator>
       </NavigationContainer>
     </ScrollView>

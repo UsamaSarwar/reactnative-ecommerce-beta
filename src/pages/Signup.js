@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 
 const Signup = () => {
   const [isValid, setIsValid] = useState(false);
+  const [reqData, setReqData] = useState({});
+  const [isNameValid, setIsNameValid] = useState(false);
   const [isPasswordValid, setIsPasswordValid] = useState(false);
   const [isEmailValid, setIsEmailValid] = useState(false);
   const [isPhoneValid, setIsPhoneValid] = useState(false);
@@ -28,32 +30,55 @@ const Signup = () => {
         type="Email"
         setIsValid={setIsEmailValid}
         required={true}
-        error={error}
+        toggleError={error}
+        setReqData={setReqData}
+        reqData={reqData}
+      ></CustomTextInput>
+      <CustomTextInput
+        type="Name"
+        setIsValid={setIsNameValid}
+        required={true}
+        toggleError={error}
+        setReqData={setReqData}
+        reqData={reqData}
       ></CustomTextInput>
       <CustomTextInput
         type="Password"
         setIsValid={setIsPasswordValid}
         required={true}
-        error={error}
+        toggleError={error}
+        setReqData={setReqData}
+        reqData={reqData}
       ></CustomTextInput>
       <CustomTextInput
         type="Phone"
         setIsValid={setIsPhoneValid}
         required={true}
-        error={error}
+        toggleError={error}
+        setReqData={setReqData}
+        reqData={reqData}
       ></CustomTextInput>
       <CustomTextInput
         type="Date of birth"
         setIsValid={setIsDateValid}
         required={true}
-        error={error}
+        toggleError={error}
+        setReqData={setReqData}
+        reqData={reqData}
       ></CustomTextInput>
-      <CustomTextInput type="Address" required={false}></CustomTextInput>
+
+      <CustomTextInput
+        type="Address"
+        required={false}
+        setReqData={setReqData}
+        reqData={reqData}
+      ></CustomTextInput>
       <LargeBlackButton
         btnText="Sign Up"
         isValid={isValid}
         setError={setError}
         changeTo="goBack"
+        req={reqData}
       ></LargeBlackButton>
       <Footer content="Already have an account?" link="Sign In"></Footer>
     </View>

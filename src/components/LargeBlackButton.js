@@ -4,32 +4,85 @@ import {
   buttonFontSize,
   marginHorizontal,
   marginVertical,
-  smallFontSize,
 } from "../utils/Constants";
 import { useNavigation } from "@react-navigation/native";
+import { useState } from "react";
+import api from "../utils/Api";
 
-const LargeBlackButton = (props) => {
+const LargeBlackButton = ({
+  isValid,
+  changeTo,
+  btnText,
+  setError,
+  req,
+  setData,
+}) => {
+  const [disable, setDisable] = useState(false);
   const navigation = useNavigation();
 
-  const onPress = () => {
-    if (props.isValid) {
-      if (props.changeTo == "goBack") {
-        if (props.btnText == "Sign Up") {
-          Alert.alert("New account created");
+  const onPress = async () => {
+    if (isValid) {
+      if (changeTo == "goBack") {
+        if (btnText == "Sign Up") {
+          setDisable(true);
+          try {
+            console.log(req);
+            let resp = await api("user/signup", "post", {
+              email: req.email,
+              name: req.name,
+              password: req.password,
+              phone: req.phone,
+              dob: req.dob,
+              address: req.address ? req.address : "",
+            });
+            if (resp && resp.body) {
+              console.log("API working");
+              navigation.goBack();
+            } else {
+              Alert.alert("Account already exists", "Please login instead.");
+            }
+          } catch (err) {
+            Alert.alert(
+              "Failed to create an account",
+              "Unkown Error occured: \n" + err.message
+            );
+          }
+          setDisable(false);
+        } else {
+          navigation.goBack();
         }
-        navigation.goBack();
       } else {
-        console.log(props.isValid);
-        navigation.navigate(props.changeTo);
+        if (btnText.toLowerCase === "login") {
+          setDisable(true);
+          try {
+            let resp = await api("user/signin", "post", {
+              email: req.email,
+              password: req.password,
+            });
+            if (resp && resp.body) {
+              console.log("API working");
+              setData(resp);
+              navigation.navigate(changeTo);
+            } else {
+              Alert.alert("Login Failed", "Invalid Credentials");
+            }
+          } catch (err) {
+            Alert.alert(
+              "Login Failed",
+              "Unkown Error occured: \n" + err.message
+            );
+          }
+          setDisable(false);
+        }
       }
     } else {
-      props.setError(true);
+      setError(true);
     }
   };
 
   return (
-    <TouchableOpacity style={styles.btn} onPress={onPress}>
-      <Text style={styles.text}>{props.btnText}</Text>
+    <TouchableOpacity disabled={disable} style={styles.btn} onPress={onPress}>
+      <Text style={styles.text}>{btnText}</Text>
     </TouchableOpacity>
   );
 };

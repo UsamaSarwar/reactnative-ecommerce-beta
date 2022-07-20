@@ -8,8 +8,9 @@ import { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { black, marginVertical, smallFontSize } from "../utils/Constants";
 
-const Login = () => {
+const Login = ({ setData }) => {
   const [isValid, setIsValid] = useState(false);
+  const [reqData, setReqData] = useState({});
   const [isPasswordValid, setIsPasswordValid] = useState(false);
   const [isEmailValid, setIsEmailValid] = useState(false);
   const [error, setError] = useState(false);
@@ -34,19 +35,25 @@ const Login = () => {
         type="Email"
         setIsValid={setIsEmailValid}
         required={true}
-        error={error}
+        toggleError={error}
+        setReqData={setReqData}
+        reqData={reqData}
       />
       <CustomTextInput
         type="Password"
         setIsValid={setIsPasswordValid}
         required={true}
-        error={error}
+        toggleError={error}
+        setReqData={setReqData}
+        reqData={reqData}
       />
       <LargeBlackButton
         btnText="LOGIN"
         isValid={isValid}
         changeTo="HomePage"
         setError={setError}
+        req={reqData}
+        setData={setData}
       />
       <Text onPress={onPress} style={styles.link}>
         Forgot your password?

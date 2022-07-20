@@ -19,7 +19,7 @@ const ForgotPassword = () => {
       <CustomTextInput
         type="Email"
         required={true}
-        error={error}
+        toggleError={error}
         setIsValid={setIsValid}
       />
       <LargeBlackButton

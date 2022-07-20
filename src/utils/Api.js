@@ -11,8 +11,8 @@ const api = async (endpoint, requestType, payload) => {
     });
     return resp.data;
   } catch (err) {
-    console.log(err);
-    return;
+    console.log(err.message);
+    return { error: true };
   }
 };
 
