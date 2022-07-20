@@ -5,12 +5,18 @@ import moment from "moment";
 
 export const signUp = async (req, res) => {
   try {
+    // check if email already exists in database
     const result = await user.findOne({ email: req.body.email });
     if (result) {
       throw new Error("ID already exists");
     }
+
+    // hash password
     let hash = await bcrypt.hash(req.body.password, 10);
+
+    // if all fields are filled
     if (req.body.email && req.body.name) {
+      // create acoount
       await user.create({
         email: req.body.email,
         name: req.body.name,
@@ -36,13 +42,16 @@ export const signUp = async (req, res) => {
 
 export const signIn = async (req, res) => {
   try {
+    // validate if email exists
     const result = await user.findOne({ email: req.body.email });
     if (result) {
+      // check if password is correct
       bcrypt.compare(req.body.password, result.password, (err, success) => {
         if (err) {
           throw new Error(err);
         }
         if (success) {
+          // create token
           const token = jwt.sign(
             {
               id: result._id,
@@ -50,14 +59,14 @@ export const signIn = async (req, res) => {
             },
             process.env.JWT_SECRET
           );
-          res.status(418).json({
+          res.status(200).json({
             header: { message: "success" },
             body: {
               token: token,
             },
           });
         } else {
-          res.status(200).json({
+          res.status(401).json({
             header: { message: "Invalid credentials" },
             body: {},
           });
@@ -78,23 +87,71 @@ export const signIn = async (req, res) => {
 };
 
 export const updatePassword = async (req, res) => {
-  // needs to be login earlier
-  // check if the the pervious password entered is correct or not
   try {
-    let prevPassword = user.password;
-    let isPasswordCorrect = await bcrypt.compare(req.password, prevPassword);
-    if (isPasswordCorrect) {
-      // change the database to new password
-      // expecting front end to validate either the password is empty
-      user.$where({});
-    } else {
-      res.status(401).json({
-        header: { message: "incorrect password enterd" },
+    // if token doesn't exists
+    if (!req.body.token) {
+      res.status(500).json({
+        header: { message: "Token not found" },
         body: {},
       });
+    } else {
+      // get information from token
+      let data = await jwt.decode(req.body.token, process.env.JWT_SECRET);
+
+      // get previous (hased)password
+
+      let currUser = await user.findById(data.id);
+
+      // check if the the pervious password entered is correct or not
+      let dbPassword = currUser.password;
+
+      bcrypt.compare(
+        req.body.prevPassword,
+        dbPassword,
+        async (err, isMatch) => {
+          if (err) {
+            return res.status(500).json({
+              header: { message: err.message },
+              body: { hmm: "error" },
+            });
+          }
+
+          if (!isMatch) {
+            return res.status(401).json({
+              header: { message: "Invalid credentials" },
+              body: {},
+            });
+          }
+
+          console.log("adasda");
+
+          // hash new password
+          let hash = await bcrypt.hash(req.body.newPassword, 10);
+
+          // change the database to new password
+          // expecting front end to perform validation
+
+          await user.updateOne(
+            {
+              _id: data.id,
+            },
+            {
+              $set: {
+                password: hash,
+              },
+            }
+          );
+
+          // password changed
+          res.status(200).json({
+            header: { message: "Password changed successfully" },
+            body: {},
+          });
+        }
+      );
     }
   } catch (err) {
-    res.status(418).json({
+    res.status(500).json({
       header: { message: err.message },
       body: {},
     });
@@ -103,6 +160,59 @@ export const updatePassword = async (req, res) => {
 
 export const deleteAccount = async (req, res) => {
   // validate token
-  // check is password is correct
-  // delete account from database
+  try {
+    // if token doesn't exists
+    if (!req.body.token) {
+      res.status(500).json({
+        header: { message: "Token not found" },
+        body: {},
+      });
+    } else {
+      // get data from token
+      let data = await jwt.decode(req.body.token, process.env.JWT_SECRET);
+
+      // check if password is correct
+      let currUser = await user.findById(data.id);
+
+      // check if the the pervious password entered is correct or not
+      let dbPassword = currUser.password;
+
+      // console.log(dbPassword);
+
+      bcrypt.compare(req.body.password, dbPassword, async (err, isMatch) => {
+        // error while comparing
+        if (err) {
+          return res.status(500).json({
+            header: { message: err.message },
+            body: { hmm: "error" },
+          });
+        }
+
+        // if password is incorrect
+        if (!isMatch) {
+          return res.status(401).json({
+            header: { message: "Invalid credentials" },
+            body: {},
+          });
+        }
+
+        // delete account from database //
+
+        let data = await jwt.decode(req.body.token, process.env.JWT_SECRET);
+
+        await user.deleteOne({ _id: data.id });
+        console.log("deleted");
+
+        res.status(200).json({
+          header: { message: "Account deleted successfully" },
+          body: {},
+        });
+      });
+    }
+  } catch (err) {
+    res.status(500).json({
+      header: { message: err.message },
+      body: {},
+    });
+  }
 };
