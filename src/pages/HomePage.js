@@ -1,8 +1,9 @@
 import { StyleSheet, Text, View } from "react-native";
 import LargeBlackButton from "../components/LargeBlackButton";
 import Header from "../components/Header";
+import { useEffect, useState } from "react";
 
-const HomePage = () => {
+const HomePage = ({ admin }) => {
   return (
     <View style={styles.container}>
       <Header content="Home Page" flex={1} />
@@ -16,6 +17,13 @@ const HomePage = () => {
         btnText="Delete Account"
         isValid={true}
       />
+      {admin && (
+        <LargeBlackButton
+          changeTo="AddProduct"
+          btnText="Add a Product"
+          isValid={true}
+        />
+      )}
     </View>
   );
 };

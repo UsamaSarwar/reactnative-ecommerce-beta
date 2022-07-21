@@ -2,10 +2,10 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { black, marginHorizontal, marginVertical } from "../utils/Constants";
 
-const Header = (props) => {
+const Header = ({ flex, content }) => {
   return (
-    <View style={{ flex: props.flex, justifyContent: "flex-end" }}>
-      <Text style={styles.heading}>{props.content}</Text>
+    <View style={{ flex: flex, justifyContent: "flex-end" }}>
+      <Text style={styles.heading}>{content}</Text>
     </View>
   );
 };

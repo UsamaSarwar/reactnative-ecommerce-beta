@@ -29,8 +29,9 @@ const validateEmpty = (text) => {
 };
 
 const validateText = (text, type) => {
-  type = type.toLocaleLowerCase();
-  if (type === "email") {
+  if (!type) {
+    return validateEmpty(text);
+  } else if (type === "email") {
     return validateEmail(text);
   } else if (type === "phone") {
     return validatePhone(text);

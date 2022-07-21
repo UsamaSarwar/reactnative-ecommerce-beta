@@ -2,7 +2,7 @@ import express from "express";
 import {
   addProduct,
   deleteProduct,
-  getProduct,
+  viewProduct,
   updateProduct,
 } from "../controllers/product.js";
 import multer from "multer";
@@ -20,12 +20,12 @@ const fileStorageEngine = multer.diskStorage({
 
 const upload = multer({ storage: fileStorageEngine });
 
-router.get("/getproduct", getProduct);
+router.get("/view", viewProduct);
 
-router.post("/addProduct", upload.single("image"), addProduct);
+router.post("/add", upload.single("image"), addProduct);
 
-router.post("/deleteProduct", deleteProduct);
+router.post("/delete", deleteProduct);
 
-router.post("/updateProduct", updateProduct);
+router.post("/update", updateProduct);
 
 export default router;

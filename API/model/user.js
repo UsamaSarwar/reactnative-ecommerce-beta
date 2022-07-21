@@ -8,6 +8,7 @@ const user = new Schema({
   phone: { type: String, required: true },
   dob: { type: Date, required: true },
   address: { type: String, required: false },
+  admin: { type: Boolean, required: true },
 });
 
 export default mongoose.model("User", user);

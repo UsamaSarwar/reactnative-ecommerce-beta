@@ -37,6 +37,34 @@ const LargeBlackButton = ({
             });
             console.log(resp);
             if (resp && resp.body) {
+              Alert.alert("Product Added", "Successfully added product.");
+              navigation.goBack();
+            } else {
+              Alert.alert("Error", "Invalid product details or missing.");
+            }
+          } catch (err) {
+            Alert.alert(
+              "Failed to create an account",
+              "Unkown Error occured: \n" + err.message
+            );
+          }
+          setDisable(false);
+        } else if (btnText == "Add Product") {
+          setDisable(true);
+          try {
+            console.log(req);
+            let resp = await api("product/addProduct", "post", {
+              name: req.name,
+              category: req.category,
+              description: req.description,
+              price: req.price,
+              discount: req.discount,
+              stock: req.stock,
+              brand: req.brand,
+              size: req.size,
+            });
+            console.log(resp);
+            if (resp && resp.body) {
               navigation.goBack();
             } else {
               Alert.alert("Account already exists", "Please login instead.");
@@ -146,7 +174,7 @@ const LargeBlackButton = ({
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 1.5,
     alignSelf: "stretch",
     // justifyContent:""
   },
@@ -154,7 +182,7 @@ const styles = StyleSheet.create({
     // flex: 1,
     height: 50,
     justifyContent: "center",
-    marginTop: marginVertical,
+    marginTop: marginVertical * 2,
     alignItems: "center",
     marginHorizontal: marginHorizontal,
     backgroundColor: black,

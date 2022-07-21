@@ -43,7 +43,7 @@ const CustomTextInput = ({
   }, [isFocused]);
 
   useEffect(() => {
-    if (type.toLowerCase() === "password") {
+    if (type && type === "password") {
       setIsPassword(true);
       setIsSecureEntry(true);
     }
@@ -64,14 +64,10 @@ const CustomTextInput = ({
 
     if (required) {
       let result = validateText(text, type);
-      if (!result[0]) {
-        if (type != "Date of birth") {
+      if (type) {
+        if (!result[0]) {
           let temp = {};
-          temp[type.toLowerCase()] = text;
-          setReqData({ ...reqData, ...temp });
-        } else {
-          let temp = {};
-          temp.dob = text;
+          temp[type] = text;
           setReqData({ ...reqData, ...temp });
         }
       }
@@ -79,6 +75,9 @@ const CustomTextInput = ({
       setError(result[0]);
       setErrorText(result[1]);
     } else {
+      let temp = {};
+      temp[type] = text;
+      setReqData({ ...reqData, ...temp });
     }
   };
 
@@ -91,7 +90,7 @@ const CustomTextInput = ({
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { marginTop: isFocused ? 10 : 0 }]}>
       <Animated.Text
         style={[
           styles.placeholderText,
@@ -115,7 +114,7 @@ const CustomTextInput = ({
           },
         ]}
       >
-        {type}
+        {placeholderText}
       </Animated.Text>
       <View style={styles.eyeContainer}>
         <TextInput
@@ -155,7 +154,7 @@ const CustomTextInput = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginVertical: marginVertical,
+    paddingBottom: 5,
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
@@ -171,6 +170,7 @@ const styles = StyleSheet.create({
     paddingLeft: 5,
     borderBottomWidth: 0.5,
     borderBottomColor: grey,
+    // backgroundColor: "red",
   },
   inputError: {
     borderBottomColor: "red",
@@ -184,7 +184,6 @@ const styles = StyleSheet.create({
   error: {
     alignSelf: "flex-start",
     color: "red",
-    marginTop: 5,
     marginHorizontal: marginHorizontal,
   },
   eye: {

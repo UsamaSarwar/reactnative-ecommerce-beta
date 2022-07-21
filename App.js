@@ -1,7 +1,8 @@
 // Libraries
 import "react-native-gesture-handler";
-import { ScrollView, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
+
 import {
   createStackNavigator,
   TransitionPresets,
@@ -15,22 +16,28 @@ import HomePage from "./src/pages/HomePage";
 import { useEffect, useState } from "react";
 import DeleteAccount from "./src/pages/DeleteAccount";
 import ChangePassword from "./src/pages/ChangePassword";
+import AddProduct from "./src/pages/AddProduct";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 const Stack = createStackNavigator();
 
 const App = () => {
   const [data, setData] = useState({});
   const [token, setToken] = useState();
+  const [admin, setAdmin] = useState();
 
   useEffect(() => {
     if (data.body) {
       if (data.body.token) {
         setToken(data.body.token);
       }
+      if (data.body.type) {
+        setAdmin(data.body.type === "admin");
+      }
     }
   }, [data]);
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <SafeAreaProvider>
       <NavigationContainer>
         <Stack.Navigator
           initialRouteName="Login"
@@ -50,7 +57,10 @@ const App = () => {
             {(props) => <Login {...props} setData={setData} />}
           </Stack.Screen>
           <Stack.Screen name="Signup" component={Signup}></Stack.Screen>
-          <Stack.Screen name="HomePage" token={token} component={HomePage} />
+          <Stack.Screen name="HomePage">
+            {(props) => <HomePage {...props} admin={admin} />}
+          </Stack.Screen>
+
           <Stack.Screen
             name="DeleteAccount"
             initialParams={{ token: token }}
@@ -61,9 +71,14 @@ const App = () => {
             initialParams={{ token: token }}
             component={ChangePassword}
           />
+          <Stack.Screen
+            name="AddProduct"
+            initialParams={{ token: token }}
+            component={AddProduct}
+          />
         </Stack.Navigator>
       </NavigationContainer>
-    </ScrollView>
+    </SafeAreaProvider>
   );
 };
 

@@ -11,3 +11,13 @@ export const black = "#242A37";
 export const grey = "#afafaf";
 export const textBlue = "#2153ff";
 export const borderBlue = "#4098ff";
+
+//dropdown data
+export const sizeList = [
+  { label: "No size", value: "" },
+  { label: "XXL", value: "xxl" },
+  { label: "XL", value: "xl" },
+  { label: "L", value: "l" },
+  { label: "S", value: "s" },
+  { label: "XS", value: "xs" },
+];

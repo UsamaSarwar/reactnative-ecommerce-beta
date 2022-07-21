@@ -24,6 +24,7 @@ export const signUp = async (req, res) => {
         phone: req.body.phone,
         dob: moment(req.body.dob),
         address: req.body.address ? req.body.address : "",
+        admin: false,
       });
       res.status(200).json({
         header: { message: "Sign Up successfull" },
@@ -59,10 +60,12 @@ export const signIn = async (req, res) => {
             },
             process.env.JWT_SECRET
           );
+          console.log(result.admin);
           res.status(200).json({
             header: { message: "success" },
             body: {
               token: token,
+              type: result.admin ? "admin" : "user",
             },
           });
         } else {
