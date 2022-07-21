@@ -30,7 +30,7 @@ const Login = ({ setData }) => {
 
   return (
     <View style={styles.container}>
-      <Header content="Login" />
+      <Header content="Login" flex={2} />
       <CustomTextInput
         type="Email"
         setIsValid={setIsEmailValid}
@@ -55,9 +55,11 @@ const Login = ({ setData }) => {
         req={reqData}
         setData={setData}
       />
-      <Text onPress={onPress} style={styles.link}>
-        Forgot your password?
-      </Text>
+      <View style={styles.forgetPassContainer}>
+        <Text onPress={onPress} style={styles.link}>
+          Forgot your password?
+        </Text>
+      </View>
       <FacebookButton />
       <Footer content="Don't have an account? " link="Sign Up" />
     </View>
@@ -65,6 +67,9 @@ const Login = ({ setData }) => {
 };
 
 const styles = StyleSheet.create({
+  forgetPassContainer: {
+    flex: 2,
+  },
   head: {
     marginTop: 5,
   },
@@ -80,7 +85,6 @@ const styles = StyleSheet.create({
     marginVertical: marginVertical,
     textDecorationLine: "underline",
     color: black,
-    flex: 2,
   },
 });
 

@@ -13,6 +13,8 @@ import ForgotPassword from "./src/pages/ForgotPassword";
 import Signup from "./src/pages/Signup";
 import HomePage from "./src/pages/HomePage";
 import { useEffect, useState } from "react";
+import DeleteAccount from "./src/pages/DeleteAccount";
+import ChangePassword from "./src/pages/ChangePassword";
 
 const Stack = createStackNavigator();
 
@@ -49,6 +51,16 @@ const App = () => {
           </Stack.Screen>
           <Stack.Screen name="Signup" component={Signup}></Stack.Screen>
           <Stack.Screen name="HomePage" token={token} component={HomePage} />
+          <Stack.Screen
+            name="DeleteAccount"
+            initialParams={{ token: token }}
+            component={DeleteAccount}
+          />
+          <Stack.Screen
+            name="ChangePassword"
+            initialParams={{ token: token }}
+            component={ChangePassword}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </ScrollView>

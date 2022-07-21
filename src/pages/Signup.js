@@ -25,7 +25,7 @@ const Signup = () => {
 
   return (
     <View style={styles.container}>
-      <Header content="Personal details"></Header>
+      <Header content="Personal details" flex={2} />
       <CustomTextInput
         type="Email"
         setIsValid={setIsEmailValid}

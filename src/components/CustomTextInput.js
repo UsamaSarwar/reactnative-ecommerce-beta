@@ -160,6 +160,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     alignSelf: "stretch",
+    // backgroundColor: "blue",
   },
   input: {
     flex: 1,

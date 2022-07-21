@@ -1,9 +1,21 @@
 import { StyleSheet, Text, View } from "react-native";
+import LargeBlackButton from "../components/LargeBlackButton";
+import Header from "../components/Header";
 
 const HomePage = () => {
   return (
     <View style={styles.container}>
-      <Text>Home Page</Text>
+      <Header content="Home Page" flex={1} />
+      <LargeBlackButton
+        changeTo="ChangePassword"
+        btnText="Change Password"
+        isValid={true}
+      />
+      <LargeBlackButton
+        changeTo="DeleteAccount"
+        btnText="Delete Account"
+        isValid={true}
+      />
     </View>
   );
 };
@@ -16,7 +28,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center",
+    alignItems: "stretch",
   },
 });
 
