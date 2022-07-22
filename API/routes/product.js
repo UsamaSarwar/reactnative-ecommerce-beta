@@ -2,7 +2,8 @@ import express from "express";
 import {
   addProduct,
   deleteProduct,
-  viewProduct,
+  viewProductSingle,
+  viewProductList,
   updateProduct,
 } from "../controllers/product.js";
 import multer from "multer";
@@ -13,14 +14,15 @@ const fileStorageEngine = multer.diskStorage({
     cb(null, "./public/images");
   },
   filename: (req, file, cb) => {
-    console.log(file.filename);
-    cb(null, file.filename);
+    cb(null, Date.now() + "--" + file.originalname);
   },
 });
 
 const upload = multer({ storage: fileStorageEngine });
 
-router.get("/view", viewProduct);
+router.post("/view", viewProductSingle);
+
+router.post("/view/list", viewProductList);
 
 router.post("/add", upload.single("image"), addProduct);
 
