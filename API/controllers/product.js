@@ -14,7 +14,7 @@ export const addProduct = async (req, res) => {
       let brand = req.body.brand;
       let image = "";
       if (req.file) {
-        image = Date.now() + req.file.originalname;
+        image = req.file.filename;
       }
       let des = req.body.description;
 
