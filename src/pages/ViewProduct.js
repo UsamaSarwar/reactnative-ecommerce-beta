@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from "react-native";
 import LargeBlackButton from "../components/LargeBlackButton";
 import Header from "../components/Header";
 
-const UserPanel = ({ admin }) => {
+const ViewProduct = ({ admin }) => {
   return (
     <View style={styles.container}>
       <Header content="User Panel" flex={1} />
@@ -39,4 +39,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default UserPanel;
+export default ViewProduct;

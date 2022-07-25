@@ -2,7 +2,8 @@
 import "react-native-gesture-handler";
 import { StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { useEffect, useState } from "react";
 import {
   createStackNavigator,
   TransitionPresets,
@@ -13,11 +14,11 @@ import Login from "./src/pages/Login";
 import ForgotPassword from "./src/pages/ForgotPassword";
 import Signup from "./src/pages/Signup";
 import HomePage from "./src/pages/HomePage";
-import { useEffect, useState } from "react";
 import DeleteAccount from "./src/pages/DeleteAccount";
 import ChangePassword from "./src/pages/ChangePassword";
 import AddProduct from "./src/pages/AddProduct";
-import { SafeAreaProvider } from "react-native-safe-area-context";
+import UserPanel from "./src/pages/UserPanel";
+import ViewProduct from "./src/pages/ViewProduct";
 
 const Stack = createStackNavigator();
 
@@ -75,6 +76,17 @@ const App = () => {
             name="AddProduct"
             initialParams={{ token: token }}
             component={AddProduct}
+          />
+          <Stack.Screen
+            name="UserPanel"
+            initialParams={{ token: token }}
+            component={UserPanel}
+          />
+
+          <Stack.Screen
+            name="ViewProduct"
+            initialParams={{ token: token }}
+            component={ViewProduct}
           />
         </Stack.Navigator>
       </NavigationContainer>

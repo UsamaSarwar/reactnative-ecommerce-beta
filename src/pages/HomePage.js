@@ -1,39 +1,27 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
 import SearchBar from "../components/SearchBar";
-import { useState } from "react";
-import { ScrollView } from "react-native-gesture-handler";
+import { useEffect, useState } from "react";
+import { FlatList, ScrollView, Text } from "react-native";
+import api from "../utils/Api";
+import SmallProduct from "../components/SmallProduct";
 
-const categoryItem = ({ item }) => (
-  <View>
-    <Text>{item}</Text>
-  </View>
-);
-
-const HomePage = ({ admin }) => {
-  const categoryData = [
-    {
-      category: "Category 1",
-    },
-    {
-      category: "Category 2",
-    },
-    {
-      category: "Category 3",
-    },
-    {
-      category: "Category 4",
-    },
-    {
-      category: "Category 5",
-    },
-    {
-      category: "Category 6",
-    },
-  ];
-
+const HomePage = ({ navigation, admin }) => {
   const [searchPhrase, setSearchPhrase] = useState("");
   const [clicked, setClicked] = useState(false);
-  const [fakeData, setFakeData] = useState();
+
+  const [productList, setProductList] = useState(null);
+  const [ad, setAd] = useState(true);
+
+  useEffect(() => {
+    const apiCall = async () => {
+      const result = await api("product/view/list", "post", {});
+      // console.log("*********");
+      // console.log(result.body.products);
+      setProductList(result.body.products);
+    };
+    // console.log("Products -> " + productList);
+    apiCall();
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -44,13 +32,44 @@ const HomePage = ({ admin }) => {
         setClicked={setClicked}
       ></SearchBar>
       <View>
-        <ScrollView></ScrollView>
+        <FlatList
+          contentContainerStyle={styles.contentContainer}
+          numColumns={2}
+          data={productList}
+          keyExtractor={(item) => item._id}
+          renderItem={({ item, index, separators }) => {
+            return (
+              <TouchableOpacity
+                style={{ flex: 1 }}
+                activeOpacity={1}
+                onPress={() =>
+                  navigation.navigate("ViewProduct", {
+                    product: item,
+                    admin: ad,
+                    // token: token,
+                  })
+                }
+              >
+                <SmallProduct product={item} admin={ad} />
+              </TouchableOpacity>
+            );
+          }}
+        />
+      </View>
+      <View>
+        {/* <FooterHomePage>
+
+        </FooterHomePage> */}
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  contentContainer: {
+    paddingBottom: 80,
+  },
+
   head: {
     marginTop: 5,
   },

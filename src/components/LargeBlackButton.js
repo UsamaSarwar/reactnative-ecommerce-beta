@@ -141,6 +141,7 @@ const LargeBlackButton = ({
               email: req.email,
               password: req.password,
             });
+            console.log(resp);
             if (resp && resp.body) {
               setData(resp);
               navigation.navigate(changeTo);
