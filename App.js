@@ -19,6 +19,8 @@ import ChangePassword from "./src/pages/ChangePassword";
 import AddProduct from "./src/pages/AddProduct";
 import UserPanel from "./src/pages/UserPanel";
 import ViewProduct from "./src/pages/ViewProduct";
+import Checkout from "./src/pages/Checkout";
+import PaymentMethods from "./src/pages/PaymentMethods";
 
 const Stack = createStackNavigator();
 
@@ -41,7 +43,7 @@ const App = () => {
     <SafeAreaProvider>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="Login"
+          initialRouteName="PaymentMethods"
           screenOptions={{
             headerShown: false,
             gestureEnabled: true,
@@ -87,6 +89,18 @@ const App = () => {
             name="ViewProduct"
             initialParams={{ token: token }}
             component={ViewProduct}
+          />
+
+          <Stack.Screen
+            name="Checkout"
+            initialParams={{ token: token }}
+            component={Checkout}
+          />
+
+          <Stack.Screen
+            name="PaymentMethods"
+            initialParams={{ token: token }}
+            component={PaymentMethods}
           />
         </Stack.Navigator>
       </NavigationContainer>

@@ -137,6 +137,16 @@ const LargeBlackButton = ({
         if (btnText.toLowerCase() === "login") {
           setDisable(true);
           try {
+            navigation.dispatch(
+              CommonActions.reset({
+                index: 0,
+                routes: [
+                  {
+                    name: "HomePage",
+                  },
+                ],
+              })
+            );
             let resp = await api("user/signin", "post", {
               email: req.email,
               password: req.password,
@@ -186,7 +196,7 @@ const styles = StyleSheet.create({
     marginTop: marginVertical * 2,
     alignItems: "center",
     marginHorizontal: marginHorizontal,
-    backgroundColor: black,
+    backgroundColor: "#000DAE",
     borderWidth: 1.5,
     borderRadius: 3,
     alignSelf: "stretch",

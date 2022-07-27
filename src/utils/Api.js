@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = "http://192.168.8.103:8000/";
+const baseUrl = "http://172.15.2.103:8000/";
 
 const api = async (endpoint, requestType, payload) => {
   try {
