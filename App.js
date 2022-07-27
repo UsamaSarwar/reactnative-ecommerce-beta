@@ -1,13 +1,12 @@
 // Libraries
-import "react-native-gesture-handler";
-import { StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { useEffect, useState } from "react";
 import {
   createStackNavigator,
   TransitionPresets,
 } from "@react-navigation/stack";
+import { configureStore } from "@reduxjs/toolkit";
+import { Provider } from "react-redux";
 
 // Pages
 import Login from "./src/pages/Login";
@@ -20,84 +19,51 @@ import AddProduct from "./src/pages/AddProduct";
 import UserPanel from "./src/pages/UserPanel";
 import ViewProduct from "./src/pages/ViewProduct";
 
+//reducers
+import userReducer from "./src/features/user";
+import apiReducer from "./src/features/api";
+import validationReducer from "./src/features/validation";
+import Test from "./src/pages/Test";
+
 const Stack = createStackNavigator();
 
-const App = () => {
-  const [data, setData] = useState({});
-  const [token, setToken] = useState();
-  const [admin, setAdmin] = useState();
-
-  useEffect(() => {
-    if (data.body) {
-      if (data.body.token) {
-        setToken(data.body.token);
-      }
-      if (data.body.type) {
-        setAdmin(data.body.type === "admin");
-      }
-    }
-  }, [data]);
-  return (
-    <SafeAreaProvider>
-      <NavigationContainer>
-        <Stack.Navigator
-          initialRouteName="Login"
-          screenOptions={{
-            headerShown: false,
-            gestureEnabled: true,
-            gestureDirection: "horizontal",
-            ...TransitionPresets.SlideFromRightIOS,
-          }}
-        >
-          <Stack.Screen
-            name="ForgotPassword"
-            token={token}
-            component={ForgotPassword}
-          />
-          <Stack.Screen name="Login">
-            {(props) => <Login {...props} setData={setData} />}
-          </Stack.Screen>
-          <Stack.Screen name="Signup" component={Signup}></Stack.Screen>
-          <Stack.Screen name="HomePage">
-            {(props) => <HomePage {...props} admin={admin} />}
-          </Stack.Screen>
-
-          <Stack.Screen
-            name="DeleteAccount"
-            initialParams={{ token: token }}
-            component={DeleteAccount}
-          />
-          <Stack.Screen
-            name="ChangePassword"
-            initialParams={{ token: token }}
-            component={ChangePassword}
-          />
-          <Stack.Screen
-            name="AddProduct"
-            initialParams={{ token: token }}
-            component={AddProduct}
-          />
-          <Stack.Screen
-            name="UserPanel"
-            initialParams={{ token: token }}
-            component={UserPanel}
-          />
-
-          <Stack.Screen
-            name="ViewProduct"
-            initialParams={{ token: token }}
-            component={ViewProduct}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </SafeAreaProvider>
-  );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+const store = configureStore({
+  reducer: {
+    user: userReducer,
+    apiData: apiReducer,
+    validation: validationReducer,
   },
 });
+
+const App = () => {
+  return (
+    <Provider store={store}>
+      <SafeAreaProvider>
+        <NavigationContainer>
+          <Stack.Navigator
+            initialRouteName="Test"
+            screenOptions={{
+              headerShown: false,
+              gestureEnabled: true,
+              gestureDirection: "horizontal",
+              ...TransitionPresets.SlideFromRightIOS,
+            }}
+          >
+            <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+            <Stack.Screen name="Login" component={Login} />
+            <Stack.Screen name="Signup" component={Signup} />
+            <Stack.Screen name="HomePage" component={HomePage} />
+            <Stack.Screen name="DeleteAccount" component={DeleteAccount} />
+            <Stack.Screen name="ChangePassword" component={ChangePassword} />
+            <Stack.Screen name="AddProduct" component={AddProduct} />
+            <Stack.Screen name="UserPanel" component={UserPanel} />
+            <Stack.Screen name="ViewProduct" component={ViewProduct} />
+            <Stack.Screen name="Test" component={Test} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </SafeAreaProvider>
+    </Provider>
+  );
+};
 
 export default App;

@@ -1,7 +1,7 @@
 import { StyleSheet, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
-const HomePageMeun = () => {
+const HomePageMenu = () => {
   retrun(
     <View style={styles.container}>
       <TouchableOpacity />
@@ -34,4 +34,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomePageMeun;
+export default HomePageMenu;

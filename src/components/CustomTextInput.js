@@ -15,16 +15,11 @@ import {
   marginVertical,
 } from "../utils/Constants";
 import validateText from "../utils/Validation";
+import { setReq } from "../features/api";
+import { setValid, setInvalid, toggleError } from "../features/validation";
+import { useDispatch, useSelector } from "react-redux";
 
-const CustomTextInput = ({
-  toggleError,
-  required,
-  type,
-  setIsValid,
-  setReqData,
-  reqData,
-  placeholderText,
-}) => {
+const CustomTextInput = ({ required, type, placeholderText }) => {
   const [text, setText] = useState("");
   const [error, setError] = useState(false);
   const [isPassword, setIsPassword] = useState(false);
@@ -33,7 +28,10 @@ const CustomTextInput = ({
   const [errorText, setErrorText] = useState("*This field is required");
 
   const anim = useRef(new Animated.Value(0)).current;
+  const dispatch = useDispatch();
+  const globalError = useSelector((state) => state.validation.error);
 
+  // Label animation
   useEffect(() => {
     Animated.timing(anim, {
       toValue: isFocused ? 1 : 0,
@@ -42,6 +40,7 @@ const CustomTextInput = ({
     }).start();
   }, [isFocused]);
 
+  //Pasword field
   useEffect(() => {
     if (type && type === "password") {
       setIsPassword(true);
@@ -49,13 +48,15 @@ const CustomTextInput = ({
     }
   }, []);
 
+  // Set Global error
   useEffect(() => {
-    if (toggleError) {
+    if (globalError) {
       let result = validateText(text, type);
       setError(result[0]);
       setErrorText(result[1]);
+      dispatch(toggleError());
     }
-  }, [toggleError]);
+  }, [globalError]);
 
   const onBlur = () => {
     if (text === "") {
@@ -66,18 +67,15 @@ const CustomTextInput = ({
       let result = validateText(text, type);
       if (type) {
         if (!result[0]) {
-          let temp = {};
-          temp[type] = text;
-          setReqData({ ...reqData, ...temp });
+          console.log("Set data for " + type);
+          dispatch(setReq({ property: type, value: text }));
         }
       }
-      setIsValid(!result[0]);
+      result[0] ? dispatch(setInvalid()) : dispatch(setValid());
       setError(result[0]);
       setErrorText(result[1]);
     } else {
-      let temp = {};
-      temp[type] = text;
-      setReqData({ ...reqData, ...temp });
+      dispatch(setReq({ property: type, value: text }));
     }
   };
 

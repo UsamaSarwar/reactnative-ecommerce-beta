@@ -7,160 +7,68 @@ import {
 } from "../utils/Constants";
 import { useNavigation, CommonActions } from "@react-navigation/native";
 import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import api from "../utils/Api";
+import { successMessages, endpoints } from "../utils/Constants";
+import { setRes } from "../features/api";
+import { toggleError } from "../features/validation";
 
-const LargeBlackButton = ({
-  isValid,
-  changeTo,
-  btnText,
-  setError,
-  req,
-  setData,
-}) => {
+const LargeBlackButton = ({ changeTo, btnText }) => {
   const [disable, setDisable] = useState(false);
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const data = useSelector((state) => state.apiData.req);
+  const isValid = useSelector((state) => {
+    return state.validation.target === state.validation.valid;
+  });
 
   const onPress = async () => {
     if (isValid) {
-      if (changeTo == "goBack") {
-        if (btnText == "Sign Up") {
-          setDisable(true);
-          try {
-            console.log(req);
-            let resp = await api("user/signup", "post", {
-              email: req.email,
-              name: req.name,
-              password: req.password,
-              phone: req.phone,
-              dob: req.dob,
-              address: req.address ? req.address : "",
-            });
-            console.log(resp);
-            if (resp && resp.body) {
-              Alert.alert("Product Added", "Successfully added product.");
-              navigation.goBack();
-            } else {
-              Alert.alert("Error", "Invalid product details or missing.");
-            }
-          } catch (err) {
-            Alert.alert(
-              "Failed to create an account",
-              "Unkown Error occured: \n" + err.message
-            );
-          }
-          setDisable(false);
-        } else if (btnText == "Add Product") {
-          setDisable(true);
-          try {
-            console.log(req);
-            let resp = await api("product/addProduct", "post", {
-              name: req.name,
-              category: req.category,
-              description: req.description,
-              price: req.price,
-              discount: req.discount,
-              stock: req.stock,
-              brand: req.brand,
-              size: req.size,
-            });
-            console.log(resp);
-            if (resp && resp.body) {
-              navigation.goBack();
-            } else {
-              Alert.alert("Account already exists", "Please login instead.");
-            }
-          } catch (err) {
-            Alert.alert(
-              "Failed to create an account",
-              "Unkown Error occured: \n" + err.message
-            );
-          }
-          setDisable(false);
+      setDisable(true);
+      try {
+        console.log(data);
+        let resp = { data: {} };
+        resp.data = await api(endpoints[btnText], "post", data);
+        if (resp && resp.data.body) {
+          // console.log(resp);
+          dispatch(setRes(resp.data.body));
+          console.log("I IS WORK");
+          let success = successMessages[btnText];
+          // Alert.alert(success.title, success.message);
         } else {
+          throw resp.data.error;
+        }
+        if (changeTo == "goBack") {
           navigation.goBack();
-        }
-      } else if (changeTo == "deleteAccount") {
-        setDisable(true);
-
-        try {
-          // calling api
-          console.log(req);
-          let resp = await api("user/delete", "post", {
-            token: req.token,
-            password: req.password,
-          });
-
-          console.log(req);
-          // if api work as expected
-          if (resp && resp.body) {
-            Alert.alert("Account Deleted", "Successfully account deleted");
-
-            navigation.dispatch(
-              CommonActions.reset({
-                index: 0,
-                routes: [
-                  {
-                    name: "Login",
-                  },
-                ],
-              })
-            );
-          } else {
-            Alert.alert("Incorrect password", "Please enter correct password");
-          }
-
-          // mention of there are any errors
-        } catch (err) {
-          Alert.alert("Login Failed", "Unkown Error occured: \n" + err.message);
-        }
-        setDisable(false);
-      } else if (btnText == "Confirm Change Password") {
-        setDisable(true);
-        try {
-          let resp = await api("user/update/password", "post", {
-            prevPassword: req.oldPassword,
-            newPassword: req.newPassword,
-            token: req.token,
-          });
-
-          if (resp && resp.body) {
-            Alert.alert("Password updated", "Successfully changed password");
-            navigation.navigate(changeTo);
-          } else {
-            Alert.alert("Login Failed", "Invalid Credentials");
-          }
-        } catch (err) {
-          Alert.alert("Login Failed", "Unkown Error occured: \n" + err.message);
-        }
-        setDisable(false);
-      } else {
-        if (btnText.toLowerCase() === "login") {
-          setDisable(true);
-          try {
-            let resp = await api("user/signin", "post", {
-              email: req.email,
-              password: req.password,
-            });
-            console.log(resp);
-            if (resp && resp.body) {
-              setData(resp);
-              navigation.navigate(changeTo);
-            } else {
-              Alert.alert("Login Failed", "Invalid Credentials");
-            }
-          } catch (err) {
-            Alert.alert(
-              "Login Failed",
-              "Unkown Error occured: \n" + err.message
-            );
-          }
-          setDisable(false);
+        } else if (changeTo == "deleteAccount") {
+          navigation.dispatch(
+            CommonActions.reset({
+              index: 0,
+              routes: [
+                {
+                  name: "Login",
+                },
+              ],
+            })
+          );
         } else {
           navigation.navigate(changeTo);
         }
+      } catch (err) {
+        dispatch(toggleError());
+        console.log(err);
+        if (err.title) {
+          Alert.alert(err.title, err.message);
+        } else {
+          Alert.alert(
+            "Error occured",
+            "Unkown Error occured: \n" + err.message
+          );
+        }
       }
+      setDisable(false);
     } else {
-      setError(true);
+      dispatch(toggleError());
     }
   };
 
