@@ -45,7 +45,10 @@ export const addProduct = async (req, res) => {
         body: {},
       });
     } else {
-      throw new Error("missing values");
+      throw {
+        title: "Failed to add Product",
+        message: "Invalid or missing product details",
+      };
     }
   } catch (err) {
     res.status(500).json({
@@ -82,14 +85,20 @@ export const viewProductSingle = async (req, res) => {
           },
         });
       } else {
-        throw new Error("Product not found");
+        throw {
+          title: "Failed to fetch Product",
+          message: "Product not found",
+        };
       }
     } else {
-      throw new Error("missing values");
+      throw {
+        title: "Failed to fetch Product",
+        message: "Missing product id",
+      };
     }
   } catch (err) {
     res.status(500).json({
-      header: { message: err.message },
+      header: err,
       body: {},
     });
   }

@@ -7,22 +7,20 @@ import FacebookButton from "../components/FacebookButton";
 import { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { black, marginVertical, smallFontSize } from "../utils/Constants";
+import { useDispatch } from "react-redux";
+import { resetApi } from "../features/api";
+import { resetV, resetValidation } from "../features/validation";
+import { init } from "../features/validation";
 
-const Login = ({ setData }) => {
-  const [isValid, setIsValid] = useState(false);
-  const [reqData, setReqData] = useState({});
-  const [isPasswordValid, setIsPasswordValid] = useState(false);
-  const [isEmailValid, setIsEmailValid] = useState(false);
-  const [error, setError] = useState(false);
+const Login = () => {
+  const dispatch = useDispatch();
   const navigation = useNavigation();
 
   useEffect(() => {
-    if (isPasswordValid && isEmailValid) {
-      setIsValid(true);
-    } else {
-      setIsValid(false);
-    }
-  }, [isPasswordValid, isEmailValid]);
+    dispatch(resetValidation());
+    dispatch(resetApi());
+    dispatch(init(2));
+  }, []);
 
   const onPress = () => {
     navigation.navigate("ForgotPassword");
@@ -31,32 +29,13 @@ const Login = ({ setData }) => {
   return (
     <View style={styles.container}>
       <Header content="Login" flex={3} />
-      <CustomTextInput
-        type="email"
-        placeholderText="Email"
-        setIsValid={setIsEmailValid}
-        required={true}
-        toggleError={error}
-        setReqData={setReqData}
-        reqData={reqData}
-      />
+      <CustomTextInput type="email" placeholderText="Email" required={true} />
       <CustomTextInput
         type="password"
         placeholderText="Password"
-        setIsValid={setIsPasswordValid}
         required={true}
-        toggleError={error}
-        setReqData={setReqData}
-        reqData={reqData}
       />
-      <LargeBlackButton
-        btnText="LOGIN"
-        isValid={isValid}
-        changeTo="HomePage"
-        setError={setError}
-        req={reqData}
-        setData={setData}
-      />
+      <LargeBlackButton btnText="LOGIN" changeTo="HomePage" />
       <Text onPress={onPress} style={styles.link}>
         Forgot your password?
       </Text>

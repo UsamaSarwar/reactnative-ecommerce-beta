@@ -4,6 +4,9 @@ import { useEffect, useState } from "react";
 import { FlatList, ScrollView, Text } from "react-native";
 import api from "../utils/Api";
 import SmallProduct from "../components/SmallProduct";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../features/user";
+import { resetApi } from "../features/api";
 
 const HomePage = ({ navigation, admin }) => {
   const [searchPhrase, setSearchPhrase] = useState("");
@@ -12,15 +15,30 @@ const HomePage = ({ navigation, admin }) => {
   const [productList, setProductList] = useState(null);
   const [ad, setAd] = useState(true);
 
+  const data = useSelector((state) => state.apiData.res);
+  const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   dispatch(reset());
+  //   dispatch(resetApi());
+  //   dispatch(init(2));
+  // }, []);
+
+  const loadData = async () => {
+    const result = await api("product/view/list", "post", {});
+    // console.log("*********");
+    // console.log(result.body.products);
+    setProductList(result.body.products);
+  };
+
   useEffect(() => {
-    const apiCall = async () => {
-      const result = await api("product/view/list", "post", {});
-      // console.log("*********");
-      // console.log(result.body.products);
-      setProductList(result.body.products);
-    };
-    // console.log("Products -> " + productList);
-    apiCall();
+    if (data.token) {
+      dispatch(login(data));
+      dispatch(resetApi());
+    }
+
+    console.log(data);
+    loadData();
   }, []);
 
   return (

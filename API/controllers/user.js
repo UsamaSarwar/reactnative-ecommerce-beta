@@ -8,7 +8,10 @@ export const signUp = async (req, res) => {
     // check if email already exists in database
     const result = await user.findOne({ email: req.body.email });
     if (result) {
-      throw new Error("ID already exists");
+      throw {
+        title: "Account already exists",
+        message: "Please login instead",
+      };
     }
 
     // hash password
@@ -31,11 +34,14 @@ export const signUp = async (req, res) => {
         body: {},
       });
     } else {
-      throw new Error("missing email or name values");
+      throw {
+        title: "Failed to sign up",
+        message: "There are missing values.",
+      };
     }
   } catch (err) {
     res.status(500).json({
-      header: { message: err.message },
+      header: { title: "Sign up failed", message: err.message },
       body: {},
     });
   }
@@ -49,7 +55,7 @@ export const signIn = async (req, res) => {
       // check if password is correct
       bcrypt.compare(req.body.password, result.password, (err, success) => {
         if (err) {
-          throw new Error(err);
+          throw err;
         }
         if (success) {
           // create token
@@ -70,20 +76,26 @@ export const signIn = async (req, res) => {
           });
         } else {
           res.status(401).json({
-            header: { message: "Invalid credentials" },
+            header: {
+              title: "Login Failed",
+              message: "Invalid Credentials, Please try again",
+            },
             body: {},
           });
         }
       });
     } else {
       res.status(401).json({
-        header: { message: "Invalid credentials" },
+        header: {
+          title: "Failed to login",
+          message: "Invalid Credentials, Please try again",
+        },
         body: {},
       });
     }
   } catch (err) {
     res.status(500).json({
-      header: { message: err.message },
+      header: { title: "Login Failed", message: err.message },
       body: {},
     });
   }
@@ -114,19 +126,23 @@ export const updatePassword = async (req, res) => {
         async (err, isMatch) => {
           if (err) {
             return res.status(500).json({
-              header: { message: err.message },
-              body: { hmm: "error" },
+              header: {
+                title: "Failed to change password",
+                message: err.message,
+              },
+              body: {},
             });
           }
 
           if (!isMatch) {
             return res.status(401).json({
-              header: { message: "Invalid credentials" },
+              header: {
+                title: "Failed to change password",
+                message: "Invalid Credentials",
+              },
               body: {},
             });
           }
-
-          console.log("adasda");
 
           // hash new password
           let hash = await bcrypt.hash(req.body.newPassword, 10);
@@ -155,7 +171,7 @@ export const updatePassword = async (req, res) => {
     }
   } catch (err) {
     res.status(500).json({
-      header: { message: err.message },
+      header: { title: "Failed to change password", message: err.message },
       body: {},
     });
   }
@@ -186,15 +202,21 @@ export const deleteAccount = async (req, res) => {
         // error while comparing
         if (err) {
           return res.status(500).json({
-            header: { message: err.message },
-            body: { hmm: "error" },
+            header: {
+              title: "Failed to delete Account",
+              message: err.message,
+            },
+            body: {},
           });
         }
 
         // if password is incorrect
         if (!isMatch) {
           return res.status(401).json({
-            header: { message: "Invalid credentials" },
+            header: {
+              title: "Failed to delete Account",
+              message: "Please enter correct password",
+            },
             body: {},
           });
         }
@@ -204,7 +226,6 @@ export const deleteAccount = async (req, res) => {
         let data = await jwt.decode(req.body.token, process.env.JWT_SECRET);
 
         await user.deleteOne({ _id: data.id });
-        console.log("deleted");
 
         res.status(200).json({
           header: { message: "Account deleted successfully" },
@@ -214,7 +235,7 @@ export const deleteAccount = async (req, res) => {
     }
   } catch (err) {
     res.status(500).json({
-      header: { message: err.message },
+      header: { title: "Failed to delete Account", message: err.message },
       body: {},
     });
   }
