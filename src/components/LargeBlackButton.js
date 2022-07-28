@@ -13,7 +13,7 @@ import { successMessages, endpoints } from "../utils/Constants";
 import { setRes } from "../features/api";
 import { toggleError } from "../features/validation";
 
-const LargeBlackButton = ({ changeTo, btnText }) => {
+const LargeBlackButton = ({ changeTo, btnText, flex }) => {
   const [disable, setDisable] = useState(false);
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -27,16 +27,18 @@ const LargeBlackButton = ({ changeTo, btnText }) => {
       setDisable(true);
       try {
         console.log(data);
-        let resp = { data: {} };
-        resp.data = await api(endpoints[btnText], "post", data);
-        if (resp && resp.data.body) {
-          // console.log(resp);
-          dispatch(setRes(resp.data.body));
-          console.log("I IS WORK");
-          let success = successMessages[btnText];
-          // Alert.alert(success.title, success.message);
-        } else {
-          throw resp.data.error;
+        if (endpoints[btnText]) {
+          let resp = { data: {} };
+          resp.data = await api(endpoints[btnText], "post", data);
+          if (resp && resp.data.body) {
+            // console.log(resp);
+            dispatch(setRes(resp.data.body));
+            console.log("I IS WORK");
+            let success = successMessages[btnText];
+            // Alert.alert(success.title, success.message);
+          } else {
+            throw resp.data.error;
+          }
         }
         if (changeTo == "goBack") {
           navigation.goBack();
@@ -73,7 +75,7 @@ const LargeBlackButton = ({ changeTo, btnText }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { flex: flex }]}>
       <TouchableOpacity disabled={disable} style={styles.btn} onPress={onPress}>
         <Text style={styles.text}>{btnText}</Text>
       </TouchableOpacity>
@@ -85,13 +87,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1.5,
     alignSelf: "stretch",
+    // backgroundColor: "orange",
     // justifyContent:""
   },
   btn: {
     // flex: 1,
     height: 50,
     justifyContent: "center",
-    marginTop: marginVertical * 2,
+    marginTop: marginVertical,
     alignItems: "center",
     marginHorizontal: marginHorizontal,
     backgroundColor: "#000DAE",
