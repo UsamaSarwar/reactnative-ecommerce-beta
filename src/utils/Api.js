@@ -2,7 +2,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { resetResponseData } from "../features/user";
 
-const baseUrl = "http://172.15.2.103:8000/";
+const baseUrl = "http://172.15.2.172:8000/";
 
 const api = async (endpoint, requestType, payload) => {
   try {

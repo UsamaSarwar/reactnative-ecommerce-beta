@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import AddressCard from "../components/AddressCard";
+import ShippingAddressCard from "../components/ShippingAddressCard";
 import Header from "../components/Header";
 import PaymentSection from "../components/PaymentSection";
 import DeliveryCard from "../components/DeliveryCard";
@@ -10,8 +10,10 @@ const Checkout = () => {
   return (
     <View style={styles.container}>
       <Header content="Checkout" />
-      <Text style={styles.address}>Shipping Address</Text>
-      <AddressCard />
+      <View>
+        <Text style={styles.address}>Shipping Address</Text>
+        <ShippingAddressCard />
+      </View>
       <PaymentSection />
       <DeliveryCard />
       <OrderSummary />
@@ -24,9 +26,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#ffffff",
     justifyContent: "space-evenly",
+    // height: "90%",
   },
   address: {
-    // marginVertical: marginVertical,
     marginHorizontal: 15,
   },
 });

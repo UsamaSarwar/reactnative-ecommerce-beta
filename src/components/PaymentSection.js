@@ -1,13 +1,23 @@
 import React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import { marginHorizontal, marginVertical } from "../utils/Constants";
+import { useNavigation } from "@react-navigation/native";
 
 const PaymentSection = () => {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
       <View style={styles.line1}>
         <Text style={styles.name}>Payment</Text>
-        <Text style={styles.change}>Change</Text>
+        <Text
+          style={styles.change}
+          onPress={() => {
+            navigation.navigate("PaymentMethods");
+          }}
+        >
+          Change
+        </Text>
       </View>
       <View style={styles.line2}>
         <Image

@@ -2,6 +2,7 @@ import React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { marginHorizontal, marginVertical } from "../utils/Constants";
+import LargeBlackButton from "../components/LargeBlackButton";
 
 const OrderSummary = () => {
   return (
@@ -18,9 +19,9 @@ const OrderSummary = () => {
         <Text style={styles.name}>Summary:</Text>
         <Text style={styles.change}>USD $ 127</Text>
       </View>
-      <TouchableOpacity style={styles.btn}>
-        <Text style={styles.btnText}>Submit Order</Text>
-      </TouchableOpacity>
+      <View style={styles.btn}>
+        <LargeBlackButton btnText="Submit Order" changeTo="ContinueShopping" />
+      </View>
     </View>
   );
 };
@@ -28,10 +29,12 @@ const OrderSummary = () => {
 const styles = StyleSheet.create({
   container: {},
   btn: {
-    backgroundColor: "#000DAE",
+    // backgroundColor: "#000DAE",
     height: 50,
     justifyContent: "center",
-    marginTop: 20,
+    // marginTop: 20,
+    marginBottom: 30,
+    // backgroundColor: "black",
   },
   btnText: {
     color: "#ffffff",

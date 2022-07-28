@@ -1,11 +1,7 @@
-import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { marginHorizontal, marginVertical } from "../utils/Constants";
-import { CheckBox } from "@rneui/themed";
 import { useNavigation } from "@react-navigation/native";
 
 const ShippingAddressCard = () => {
-  const [tick, setTick] = useState(false);
   const navigation = useNavigation();
 
   return (
@@ -15,10 +11,10 @@ const ShippingAddressCard = () => {
         <Text
           style={styles.change}
           onPress={() => {
-            navigation.navigate("AddAddress");
+            navigation.navigate("ShippingAddress");
           }}
         >
-          Edit
+          Change
         </Text>
       </View>
       <View>
@@ -27,22 +23,12 @@ const ShippingAddressCard = () => {
       <View>
         <Text>Chino Hills, CA 91709, United States</Text>
       </View>
-      <View style={styles.checkbox}>
-        <CheckBox
-          title="Use as the shipping address"
-          checked={tick}
-          onPress={() => {
-            setTick(!tick);
-          }}
-        />
-      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    elevation: 3,
     padding: 20,
     // width: "80%",
     marginVertical: 10,
@@ -50,14 +36,12 @@ const styles = StyleSheet.create({
     // backgroundColor: "#849DFE",
     // borderColor: "#849DFE",
     // borderWidth: 2,
-    // borderRadius: 15,
+    borderRadius: 0,
+    elevation: 5,
   },
   line1: {
     flexDirection: "row",
     justifyContent: "space-between",
-  },
-  checkbox: {
-    marginLeft: -20,
   },
   name: {},
   change: {},

@@ -9,23 +9,27 @@ import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
 
 // Pages
-import Login from "./src/pages/Login";
-import ForgotPassword from "./src/pages/ForgotPassword";
-import Signup from "./src/pages/Signup";
-import HomePage from "./src/pages/HomePage";
-import DeleteAccount from "./src/pages/DeleteAccount";
-import ChangePassword from "./src/pages/ChangePassword";
+import AddAddress from "./src/pages/AddAddress";
+import AddNewCard from "./src/pages/AddNewCard";
 import AddProduct from "./src/pages/AddProduct";
+import Checkout from "./src/pages/Checkout";
+import ChangePassword from "./src/pages/ChangePassword";
+import ContinueShopping from "./src/pages/ContinueShopping";
+import DeleteAccount from "./src/pages/DeleteAccount";
+import ForgotPassword from "./src/pages/ForgotPassword";
+import HomePage from "./src/pages/HomePage";
+import Login from "./src/pages/Login";
+import PaymentMethods from "./src/pages/PaymentMethods";
+import ShippingAddress from "./src/pages/ShippingAddress";
+import Signup from "./src/pages/Signup";
 import UserPanel from "./src/pages/UserPanel";
 import ViewProduct from "./src/pages/ViewProduct";
-import Checkout from "./src/pages/Checkout";
-import PaymentMethods from "./src/pages/PaymentMethods";
 
 //reducers
 import userReducer from "./src/features/user";
 import apiReducer from "./src/features/api";
 import validationReducer from "./src/features/validation";
-import Test from "./src/pages/Test";
+// import Test from "./src/pages/Test";
 
 const Stack = createStackNavigator();
 
@@ -43,7 +47,7 @@ const App = () => {
       <SafeAreaProvider>
         <NavigationContainer>
           <Stack.Navigator
-            initialRouteName="Test"
+            initialRouteName="Checkout"
             screenOptions={{
               headerShown: false,
               gestureEnabled: true,
@@ -60,7 +64,16 @@ const App = () => {
             <Stack.Screen name="AddProduct" component={AddProduct} />
             <Stack.Screen name="UserPanel" component={UserPanel} />
             <Stack.Screen name="ViewProduct" component={ViewProduct} />
-            <Stack.Screen name="Test" component={Test} />
+            {/* <Stack.Screen name="Test" component={Test} /> */}
+            <Stack.Screen name="Checkout" component={Checkout} />
+            <Stack.Screen name="PaymentMethods" component={PaymentMethods} />
+            <Stack.Screen name="AddAddress" component={AddAddress} />
+            <Stack.Screen name="AddNewCard" component={AddNewCard} />
+            <Stack.Screen
+              name="ContinueShopping"
+              component={ContinueShopping}
+            />
+            <Stack.Screen name="ShippingAddress" component={ShippingAddress} />
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaProvider>
