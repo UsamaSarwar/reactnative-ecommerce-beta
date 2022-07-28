@@ -30,6 +30,9 @@ import userReducer from "./src/features/user";
 import apiReducer from "./src/features/api";
 import validationReducer from "./src/features/validation";
 // import Test from "./src/pages/Test";
+import cartReducer from "./src/features/cart";
+import Test from "./src/pages/Test";
+import Cart from "./src/pages/Cart";
 
 const Stack = createStackNavigator();
 
@@ -38,6 +41,7 @@ const store = configureStore({
     user: userReducer,
     apiData: apiReducer,
     validation: validationReducer,
+    cart: cartReducer,
   },
 });
 
@@ -47,7 +51,7 @@ const App = () => {
       <SafeAreaProvider>
         <NavigationContainer>
           <Stack.Navigator
-            initialRouteName="Checkout"
+            initialRouteName="HomePage"
             screenOptions={{
               headerShown: false,
               gestureEnabled: true,
@@ -74,6 +78,8 @@ const App = () => {
               component={ContinueShopping}
             />
             <Stack.Screen name="ShippingAddress" component={ShippingAddress} />
+            <Stack.Screen name="Cart" component={Cart}></Stack.Screen>
+            <Stack.Screen name="Test" component={Test} />
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaProvider>

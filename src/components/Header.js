@@ -4,7 +4,12 @@ import { black, marginHorizontal, marginVertical } from "../utils/Constants";
 
 const Header = ({ flex, content }) => {
   return (
-    <View style={{ flex: flex, justifyContent: "flex-end" }}>
+    <View
+      style={{
+        flex: flex,
+        justifyContent: "flex-end",
+      }}
+    >
       <Text style={styles.heading}>{content}</Text>
     </View>
   );
@@ -16,8 +21,9 @@ const styles = StyleSheet.create({
     marginVertical: marginVertical,
     alignSelf: "center",
     color: black,
-    fontSize: 34,
+    fontSize: 32,
     fontWeight: "bold",
+    // backgroundColor: "blue",
   },
 });
 

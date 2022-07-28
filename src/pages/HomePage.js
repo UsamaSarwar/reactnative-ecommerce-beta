@@ -14,8 +14,9 @@ import { login } from "../features/user";
 import { resetApi } from "../features/api";
 import HomePageMenu from "../components/HomePageMenu";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { selectItem } from "../features/cart";
 
-const HomePage = ({ navigation, admin }) => {
+const HomePage = ({ navigation }) => {
   const filterData = [
     { label: "Chair" },
     { label: "Cupboard" },
@@ -29,14 +30,16 @@ const HomePage = ({ navigation, admin }) => {
   const [clicked, setClicked] = useState(false);
 
   const [productList, setProductList] = useState(null);
-  const [ad, setAd] = useState(true);
+  const admin = useSelector((state) => state.user.admin);
 
   const data = useSelector((state) => state.apiData.res);
   const dispatch = useDispatch();
 
   const loadData = async () => {
     const result = await api("product/view/list", "post", {});
-    setProductList(result.body.products);
+    if (result && result.body) {
+      setProductList(result.body.products);
+    }
   };
 
   useEffect(() => {
@@ -45,9 +48,23 @@ const HomePage = ({ navigation, admin }) => {
       dispatch(resetApi());
     }
 
-    console.log(data);
     loadData();
   }, []);
+
+  const renderItem = ({ item, index, separators }) => {
+    return (
+      <TouchableOpacity
+        style={{ flex: 1 }}
+        activeOpacity={1}
+        onPress={() => {
+          dispatch(selectItem(item._id));
+          navigation.navigate("ViewProduct");
+        }}
+      >
+        <SmallProduct product={item} admin={admin} />
+      </TouchableOpacity>
+    );
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -73,23 +90,7 @@ const HomePage = ({ navigation, admin }) => {
           numColumns={2}
           data={productList}
           keyExtractor={(item) => item._id}
-          renderItem={({ item, index, separators }) => {
-            return (
-              <TouchableOpacity
-                style={{ flex: 1 }}
-                activeOpacity={1}
-                onPress={() =>
-                  navigation.navigate("ViewProduct", {
-                    product: item,
-                    admin: ad,
-                    // token: token,
-                  })
-                }
-              >
-                <SmallProduct product={item} admin={ad} />
-              </TouchableOpacity>
-            );
-          }}
+          renderItem={renderItem}
         />
       </View>
       <HomePageMenu />

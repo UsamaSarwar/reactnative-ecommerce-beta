@@ -2,14 +2,14 @@ import { set } from "mongoose";
 import { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
-import { marginHorizontal, marginVertical } from "../utils/Constants";
+import { grey, marginHorizontal, marginVertical } from "../utils/Constants";
 
 const CustomDropDown = ({
   itemList,
   placeholderText,
-  setReqData,
-  reqData,
   type,
+  required,
+  setResult,
 }) => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
@@ -20,16 +20,20 @@ const CustomDropDown = ({
   }, [itemList]);
 
   useEffect(() => {
-    let temp = {};
-    temp[type] = value;
-    setReqData({ ...reqData, ...temp });
+    setResult(value);
   }, [value]);
+
+  // useEffect(() => {
+  //   let temp = {};
+  //   temp[type] = value;
+  //   setReqData({ ...reqData, ...temp });
+  // }, [value]);
 
   return (
     <View
       style={{
-        marginHorizontal: marginHorizontal,
-        marginTop: marginVertical,
+        flex: 1,
+        marginHorizontal: 10,
       }}
     >
       <DropDownPicker
@@ -44,6 +48,8 @@ const CustomDropDown = ({
         style={styles.dropdown}
         showArrowIcon={true}
         dropDownContainerStyle={styles.dropdown}
+        modalContentContainerStyle={styles.modal}
+        modalTitleStyle={styles.modalTitle}
       ></DropDownPicker>
     </View>
   );
@@ -52,12 +58,17 @@ const CustomDropDown = ({
 const styles = StyleSheet.create({
   dropdown: {
     backgroundColor: "whitesmoke",
-    borderRadius: 2,
+    borderColor: grey,
+    borderRadius: 10,
   },
   dropdownContainer: {
-    height: 500,
+    height: 10,
     backgroundColor: "whitesmoke",
     borderRadius: 2,
+  },
+  modal: {},
+  modalTitle: {
+    // backgroundColor: "yellow",
   },
 });
 

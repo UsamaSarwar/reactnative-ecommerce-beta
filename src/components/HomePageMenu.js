@@ -35,7 +35,7 @@ const HomePageMenu = () => {
         <TouchableWithoutFeedback
           style={styles.component}
           onPress={() => {
-            navigation.navigate("Checkout");
+            navigation.navigate("Cart");
           }}
         >
           <Cart height={22} width={22} />

@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import { Image, StyleSheet, View, Text } from "react-native";
 
 const SmallProduct = ({ product, admin }) => {
-  console.log(product);
-
   return (
     <View style={styles.container}>
       <Image
@@ -11,7 +9,7 @@ const SmallProduct = ({ product, admin }) => {
         source={require("../../assets/public/images/pngwing.png")}
       />
       <Text style={styles.name}>{product.name}</Text>
-      <Text style={styles.price}>{product.price}</Text>
+      <Text style={styles.price}>$ {product.price}</Text>
     </View>
   );
 };

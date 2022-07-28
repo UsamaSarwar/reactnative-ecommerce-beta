@@ -12,8 +12,9 @@ import api from "../utils/Api";
 import { successMessages, endpoints } from "../utils/Constants";
 import { setRes } from "../features/api";
 import { toggleError } from "../features/validation";
+import { addToCart } from "../features/cart";
 
-const LargeBlackButton = ({ changeTo, btnText, flex }) => {
+const LargeBlackButton = ({ changeTo, btnText, flex, cartItem }) => {
   const [disable, setDisable] = useState(false);
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -53,6 +54,8 @@ const LargeBlackButton = ({ changeTo, btnText, flex }) => {
               ],
             })
           );
+        } else if (btnText === "ADD TO CART") {
+          dispatch(addToCart(cartItem));
         } else {
           navigation.navigate(changeTo);
         }
