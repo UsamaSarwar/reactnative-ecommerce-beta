@@ -8,11 +8,16 @@ export const userSlice = createSlice({
   reducers: {
     login: (state, { payload }) => {
       const admin = payload.type === "admin" ? true : false;
-      state = { token: payload.token, admin: admin };
+      state.token = payload.token;
+      state.admin = admin;
+    },
+    logout: (state, { payload }) => {
+      state.token = "";
+      state.admin = false;
     },
   },
 });
 
-export const { login } = userSlice.actions;
+export const { login, logout } = userSlice.actions;
 
 export default userSlice.reducer;

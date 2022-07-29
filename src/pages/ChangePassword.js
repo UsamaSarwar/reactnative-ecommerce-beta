@@ -13,7 +13,7 @@ const ChangePassword = ({ route }) => {
   const token = useSelector((state) => state.user.token);
 
   useEffect(() => {
-    setReq({ property: "token", value: token });
+    dispatch(setReq({ property: "token", value: token }));
     dispatch(init(3));
   }, []);
 

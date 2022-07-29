@@ -11,7 +11,8 @@ export const validationSlice = createSlice({
       state.valid = 0;
     },
     setValid: (state, { payload }) => {
-      state.valid = state.valid + 1;
+      const value = Math.min(state.valid + 1, state.target);
+      state.valid = value;
     },
     setInvalid: (state, { payload }) => {
       const value = Math.max(0, state.valid - 1);

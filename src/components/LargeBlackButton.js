@@ -27,6 +27,7 @@ const LargeBlackButton = ({ changeTo, btnText, flex, cartItem }) => {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.apiData.req);
   const isValid = useSelector((state) => {
+    console.log("STATE VALID" + state.validation.target);
     return state.validation.target === state.validation.valid;
   });
 

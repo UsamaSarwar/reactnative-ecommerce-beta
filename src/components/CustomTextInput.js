@@ -51,6 +51,7 @@ const CustomTextInput = ({ required, type, placeholderText }) => {
       setIsPassword(true);
       setIsSecureEntry(true);
     }
+    setText("");
   }, []);
 
   // Set Global error
