@@ -5,6 +5,7 @@ import Header from "../components/Header";
 import PaymentSection from "../components/PaymentSection";
 import DeliveryCard from "../components/DeliveryCard";
 import OrderSummary from "../components/OrderSummary";
+import LargeBlackButton from "../components/LargeBlackButton";
 
 const Checkout = () => {
   return (
@@ -17,6 +18,8 @@ const Checkout = () => {
       <PaymentSection />
       <DeliveryCard />
       <OrderSummary />
+
+      <LargeBlackButton btnText="Submit Order" changeTo="ContinueShopping" />
     </View>
   );
 };
@@ -30,6 +33,8 @@ const styles = StyleSheet.create({
   },
   address: {
     marginHorizontal: 15,
+    fontWeight: "bold",
+    fontSize: 16,
   },
 });
 

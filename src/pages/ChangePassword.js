@@ -4,58 +4,41 @@ import Header from "../components/Header";
 import CustomTextInput from "../components/CustomTextInput";
 import { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch, useSelector } from "react-redux";
+import { init } from "../features/validation";
+import { setReq } from "../features/api";
 
 const ChangePassword = ({ route }) => {
-  const [isValid, setIsValid] = useState(false);
-  const [reqData, setReqData] = useState({});
-  const [isOldPasswordValid, setIsOldPasswordValid] = useState(false);
-  const [isNewPasswordValid, setIsNewPasswordValid] = useState(false);
-  const [error, setError] = useState(false);
-  const [oldPassword, setOldPassword] = useState({});
-  const [newPassword, setNewPassword] = useState({});
+  const dispatch = useDispatch();
+  const token = useSelector((state) => state.user.token);
 
   useEffect(() => {
-    if (oldPassword && newPassword) {
-      if (isNewPasswordValid && isOldPasswordValid) {
-        setIsValid(true);
-        // setReqData({oldPassword: oldPassword.})
-        setReqData({
-          oldPassword: oldPassword.password,
-          newPassword: newPassword.password,
-          token: route.params.token,
-        });
-      }
-    }
-  }, [oldPassword, newPassword]);
+    setReq({ property: "token", value: token });
+    dispatch(init(3));
+  }, []);
 
   return (
     <View style={styles.container}>
-      <Header content="Change Password" flex={1.5} />
+      <Header content="Change Password" flex={0.5} />
 
       <CustomTextInput
-        type="password"
-        setIsValid={setIsOldPasswordValid}
+        type="prevPassword"
+        placeholderText="Current Password"
         required={true}
-        toggleError={error}
-        setReqData={setOldPassword}
-        reqData={oldPassword}
       />
 
       <CustomTextInput
-        type="password"
-        setIsValid={setIsNewPasswordValid}
+        type="newPassword"
+        placeholderText="New Password"
         required={true}
-        toggleError={error}
-        setReqData={setNewPassword}
-        reqData={newPassword}
       />
-      <LargeBlackButton
-        btnText="Confirm Change Password"
-        isValid={isValid}
-        changeTo="HomePage"
-        setError={setError}
-        req={reqData}
+
+      <CustomTextInput
+        type="password"
+        placeholderText="Retype New Password"
+        required={true}
       />
+      <LargeBlackButton btnText="Confirm Change Password" changeTo="HomePage" />
     </View>
   );
 };
@@ -70,6 +53,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    paddingBottom: 50,
   },
 });
 

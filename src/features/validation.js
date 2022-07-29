@@ -8,6 +8,7 @@ export const validationSlice = createSlice({
   reducers: {
     init: (state, { payload }) => {
       state.target = payload;
+      state.valid = 0;
     },
     setValid: (state, { payload }) => {
       state.valid = state.valid + 1;

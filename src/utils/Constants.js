@@ -67,7 +67,7 @@ export const successMessages = {
 // API endpoints
 export const endpoints = {
   "Sign Up": "user/signup",
-  "Add Product": "product/addProduct",
+  "Add Product": "product/add",
   "Delete Account": "user/delete",
   "Confirm Change Password": "user/update/password",
   LOGIN: "user/signin",

@@ -51,7 +51,7 @@ const App = () => {
       <SafeAreaProvider>
         <NavigationContainer>
           <Stack.Navigator
-            initialRouteName="HomePage"
+            initialRouteName="Login"
             screenOptions={{
               headerShown: false,
               gestureEnabled: true,

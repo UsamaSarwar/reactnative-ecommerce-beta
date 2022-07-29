@@ -56,6 +56,16 @@ const styles = StyleSheet.create({
   cardNum: {
     alignSelf: "center",
   },
+  name: {
+    fontWeight: "bold",
+    fontSize: 16,
+  },
+  change: {
+    color: "blue",
+    fontSize: 16,
+    fontWeight: "bold",
+    textDecorationLine: "underline",
+  },
 });
 
 export default PaymentSection;

@@ -28,58 +28,36 @@ const Signup = () => {
       <Header content="Personal details" flex={2} />
       <CustomTextInput
         type="Email"
-        setIsValid={setIsEmailValid}
+        placeholderText="Email address"
         required={true}
-        toggleError={error}
-        setReqData={setReqData}
-        reqData={reqData}
-      ></CustomTextInput>
+      />
       <CustomTextInput
         type="Name"
-        setIsValid={setIsNameValid}
+        placeholderText="Full Name"
         required={true}
-        toggleError={error}
-        setReqData={setReqData}
-        reqData={reqData}
-      ></CustomTextInput>
+      />
       <CustomTextInput
         type="Password"
-        setIsValid={setIsPasswordValid}
+        placeholderText="Password"
         required={true}
-        toggleError={error}
-        setReqData={setReqData}
-        reqData={reqData}
-      ></CustomTextInput>
+      />
       <CustomTextInput
         type="Phone"
-        setIsValid={setIsPhoneValid}
+        placeholderText="Phone Number"
         required={true}
-        toggleError={error}
-        setReqData={setReqData}
-        reqData={reqData}
-      ></CustomTextInput>
+      />
       <CustomTextInput
-        type="Date of birth"
-        setIsValid={setIsDateValid}
+        type="Date"
+        placeholderText="Date of Birth"
         required={true}
-        toggleError={error}
-        setReqData={setReqData}
-        reqData={reqData}
-      ></CustomTextInput>
-
+      />
       <CustomTextInput
         type="Address"
+        placeholderText="Address"
         required={false}
-        setReqData={setReqData}
-        reqData={reqData}
-      ></CustomTextInput>
-      <LargeBlackButton
-        btnText="Sign Up"
-        isValid={isValid}
-        setError={setError}
-        changeTo="goBack"
-        req={reqData}
-      ></LargeBlackButton>
+      />
+
+      <LargeBlackButton btnText="Sign Up" changeTo="goBack"></LargeBlackButton>
       <Footer content="Already have an account?" link="Sign In"></Footer>
     </View>
   );

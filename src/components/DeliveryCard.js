@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   },
   container: {
     padding: 10,
-    marginVertical: 10,
+    // marginVertical: 10,
     marginHorizontal: 10,
   },
   line1: {
@@ -44,6 +44,10 @@ const styles = StyleSheet.create({
   },
   cardNum: {
     alignSelf: "center",
+  },
+  name: {
+    fontWeight: "bold",
+    fontSize: 16,
   },
 });
 

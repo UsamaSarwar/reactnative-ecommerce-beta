@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
     right: 5,
     resizeMode: "contain",
     height: 60,
+    zIndex: 1,
     // backgroundColor: "blue",
   },
 });

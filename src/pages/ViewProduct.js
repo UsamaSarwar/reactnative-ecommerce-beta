@@ -1,6 +1,5 @@
 import {
   Image,
-  Modal,
   FlatList,
   StyleSheet,
   Text,
@@ -13,16 +12,12 @@ import Header from "../components/Header";
 import CustomDropDown from "../components/CustomDropDown";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import {
-  grey,
-  LoremIpsum,
-  marginHorizontal,
-  sizeList,
-} from "../utils/Constants";
+import { grey } from "../utils/Constants";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import api from "../utils/Api";
 import Counter from "../components/Counter";
+import { init } from "../features/validation";
 
 const ViewProduct = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -55,6 +50,7 @@ const ViewProduct = ({ navigation }) => {
 
   //Back Button Handling
   useEffect(() => {
+    dispatch(init(0));
     return () =>
       BackHandler.removeEventListener("hardwareBackPress", () => {
         dispatch(clearSelectedItem());
@@ -69,7 +65,7 @@ const ViewProduct = ({ navigation }) => {
     switch (item.id) {
       case 0:
         const imagePath = data
-          ? "http://192.168.10.3:8000/" + data.image
+          ? "http://192.168.8.103:8000/" + data.image
           : "https://picsum.photos/200";
         return (
           <TouchableOpacity>

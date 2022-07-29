@@ -40,9 +40,14 @@ const CustomTextInput = ({ required, type, placeholderText }) => {
     }).start();
   }, [isFocused]);
 
-  //Pasword field
+  //Password field
   useEffect(() => {
-    if (type && type === "password") {
+    if (
+      type &&
+      type === "password" &&
+      type === "newPassword" &&
+      type === "prevPassword"
+    ) {
       setIsPassword(true);
       setIsSecureEntry(true);
     }

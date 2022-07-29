@@ -44,7 +44,12 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   name: {},
-  change: {},
+  change: {
+    color: "blue",
+    fontSize: 16,
+    fontWeight: "bold",
+    textDecorationLine: "underline",
+  },
   line2: {},
   line3: {},
 });

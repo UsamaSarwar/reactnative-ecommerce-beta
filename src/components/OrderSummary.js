@@ -8,20 +8,19 @@ const OrderSummary = () => {
   return (
     <View style={styles.container}>
       <View style={styles.line1}>
-        <Text style={styles.name}>Order:</Text>
-        <Text style={styles.change}>USD $ 112</Text>
+        <Text>Order:</Text>
+        <Text>USD $ 112</Text>
       </View>
       <View style={styles.line1}>
-        <Text style={styles.name}>Delivery:</Text>
-        <Text style={styles.change}>USD $ 15</Text>
+        <Text>Delivery:</Text>
+        <Text>USD $ 15</Text>
       </View>
+      <View style={styles.line}></View>
       <View style={styles.line1}>
-        <Text style={styles.name}>Summary:</Text>
-        <Text style={styles.change}>USD $ 127</Text>
+        <Text style={styles.summary}>Summary:</Text>
+        <Text style={styles.summary}>USD $ 127</Text>
       </View>
-      <View style={styles.btn}>
-        <LargeBlackButton btnText="Submit Order" changeTo="ContinueShopping" />
-      </View>
+      {/* <LargeBlackButton btnText="Submit Order" changeTo="ContinueShopping" /> */}
     </View>
   );
 };
@@ -33,7 +32,7 @@ const styles = StyleSheet.create({
     height: 50,
     justifyContent: "center",
     // marginTop: 20,
-    marginBottom: 30,
+    // marginBottom: 0,
     // backgroundColor: "black",
   },
   btnText: {
@@ -61,8 +60,17 @@ const styles = StyleSheet.create({
     marginTop: 15,
     // alignSelf: "flex-start",
   },
+  line: {
+    marginVertical: 4,
+    height: 0.5,
+    backgroundColor: "#000000",
+  },
   cardNum: {
     alignSelf: "center",
+  },
+  summary: {
+    // fontWeight: "bold",
+    fontSize: 16,
   },
 });
 

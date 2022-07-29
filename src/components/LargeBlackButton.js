@@ -1,4 +1,11 @@
-import { StyleSheet, Text, TouchableOpacity, Alert, View } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  Alert,
+  View,
+  Keyboard,
+} from "react-native";
 import {
   black,
   buttonFontSize,
@@ -11,7 +18,7 @@ import { useSelector, useDispatch } from "react-redux";
 import api from "../utils/Api";
 import { successMessages, endpoints } from "../utils/Constants";
 import { setRes } from "../features/api";
-import { toggleError } from "../features/validation";
+import { init, toggleError } from "../features/validation";
 import { addToCart } from "../features/cart";
 
 const LargeBlackButton = ({ changeTo, btnText, flex, cartItem }) => {
@@ -24,6 +31,11 @@ const LargeBlackButton = ({ changeTo, btnText, flex, cartItem }) => {
   });
 
   const onPress = async () => {
+    Keyboard.dismiss;
+    console.log("isValid: " + isValid);
+    // if (!isValid) {
+    //   isValid = false;
+    // }
     if (isValid) {
       setDisable(true);
       try {
@@ -59,6 +71,7 @@ const LargeBlackButton = ({ changeTo, btnText, flex, cartItem }) => {
         } else {
           navigation.navigate(changeTo);
         }
+        dispatch(init(0));
       } catch (err) {
         dispatch(toggleError());
         console.log(err);

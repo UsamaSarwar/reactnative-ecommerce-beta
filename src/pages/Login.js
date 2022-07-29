@@ -1,4 +1,11 @@
-import { StyleSheet, View, Text } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  TouchableWithoutFeedback,
+  Keyboard,
+  Pressable,
+} from "react-native";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import LargeBlackButton from "../components/LargeBlackButton";
@@ -27,21 +34,30 @@ const Login = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <Header content="Login" flex={3} />
-      <CustomTextInput type="email" placeholderText="Email" required={true} />
-      <CustomTextInput
-        type="password"
-        placeholderText="Password"
-        required={true}
-      />
-      <LargeBlackButton btnText="LOGIN" changeTo="HomePage" />
-      <Text onPress={onPress} style={styles.link}>
-        Forgot your password?
-      </Text>
-      <FacebookButton />
-      <Footer content="Don't have an account? " link="Sign Up" />
-    </View>
+    <Pressable
+      style={styles.container}
+      onPressIn={() => {
+        console.log(Keyboard.dismiss());
+        Keyboard.dismiss;
+      }}
+      accessible={false}
+    >
+      <View style={styles.container}>
+        <Header content="Welcome Back" flex={3} />
+        <CustomTextInput type="email" placeholderText="Email" required={true} />
+        <CustomTextInput
+          type="password"
+          placeholderText="Password"
+          required={true}
+        />
+        <LargeBlackButton btnText="LOGIN" changeTo="HomePage" />
+        <Text onPress={onPress} style={styles.link}>
+          Forgot your password?
+        </Text>
+        <FacebookButton />
+        <Footer content="Don't have an account? " link="Sign Up" />
+      </View>
+    </Pressable>
   );
 };
 

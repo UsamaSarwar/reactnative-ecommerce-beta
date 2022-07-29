@@ -42,15 +42,14 @@ const ShippingAddressCard = () => {
 
 const styles = StyleSheet.create({
   container: {
-    elevation: 3,
     padding: 20,
     // width: "80%",
-    marginVertical: 10,
-    marginHorizontal: 10,
-    // backgroundColor: "#849DFE",
-    // borderColor: "#849DFE",
-    // borderWidth: 2,
-    // borderRadius: 15,
+    margin: 8,
+    // elevation: 5,
+    //backgroundColor: "#849DFE",
+    borderColor: "#849DFE",
+    borderWidth: 2,
+    borderRadius: 15,
   },
   line1: {
     flexDirection: "row",
@@ -60,7 +59,12 @@ const styles = StyleSheet.create({
     marginLeft: -20,
   },
   name: {},
-  change: {},
+  change: {
+    color: "blue",
+    fontSize: 16,
+    fontWeight: "bold",
+    textDecorationLine: "underline",
+  },
   line2: {},
   line3: {},
 });
