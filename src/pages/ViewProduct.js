@@ -65,7 +65,7 @@ const ViewProduct = ({ navigation }) => {
     switch (item.id) {
       case 0:
         const imagePath = data
-          ? "http://192.168.10.3:8000/" + data.image
+          ? "http://192.168.8.103:8000/" + data.image
           : "https://picsum.photos/200";
         return (
           <TouchableOpacity>

@@ -35,8 +35,9 @@ const Main = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     return () =>
-      BackHandler.removeEventListener("hardwareBackPress", () => {
+      BackHandler.addEventListener("hardwareBackPress", () => {
         dispatch(init(0));
+        console.log("I am mad");
       });
   }, []);
 

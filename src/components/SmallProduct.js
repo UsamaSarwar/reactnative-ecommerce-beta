@@ -3,8 +3,9 @@ import { Image, StyleSheet, View, Text } from "react-native";
 
 const SmallProduct = ({ product, admin }) => {
   const imagePath = product
-    ? "http://192.168.10.3:8000/" + product.image
+    ? "http://192.168.8.103:8000/" + product.image
     : "https://picsum.photos/200";
+
   return (
     <View style={styles.container}>
       <Image style={styles.img} source={{ uri: imagePath }} />
@@ -21,7 +22,7 @@ const styles = StyleSheet.create({
     margin: 15,
     padding: 15,
   },
-  img: { flex: 1, alignSelf: "center" },
+  img: { alignSelf: "center", aspectRatio: 1, width: 100, height: null },
   name: {},
   price: {},
 });

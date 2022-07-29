@@ -1,8 +1,16 @@
 import { StyleSheet, Text, View } from "react-native";
 import LargeBlackButton from "../components/LargeBlackButton";
 import Header from "../components/Header";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { init } from "../features/validation";
 
 const UserPanel = ({ token, admin }) => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(init(0));
+  }, []);
   return (
     <View style={styles.container}>
       <Header content="User Panel" flex={0.2} />

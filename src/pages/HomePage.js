@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
   contentContainer: {
-    paddingBottom: 80,
+    paddingBottom: 180,
   },
 
   head: {
