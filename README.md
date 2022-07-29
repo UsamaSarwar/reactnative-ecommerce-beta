@@ -1,5 +1,17 @@
 # reactnative-ecommerce-beta
 
-[![Link](https://raw.githubusercontent.com/github/explore/d744245de144b89f3e3462949e08bfc91eda7fcf/topics/youtube/youtube.png)](https://youtu.be/aRdM6C46twA)
+[![Link](https://user-images.githubusercontent.com/52548004/181695662-099bef48-84ab-4d8f-8e1b-323f1146505d.png)](https://youtu.be/aRdM6C46twA)
 
 Open-Source React Native Ecommerce Cross Platform Mobile App
+
+## version 2022.07.28
+
+- [x] Login
+- [X] Signup
+- [X] HomePage
+- [X] View Product
+- [X] User/Admin Panel
+- [X] ForgetPassword (UI)
+- [X] Payment and Adress (UI)
+- [X] Checkout (UI)
+- [X] Cart
