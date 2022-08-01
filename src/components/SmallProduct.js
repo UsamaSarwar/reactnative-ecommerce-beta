@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { Image, StyleSheet, View, Text } from "react-native";
+import Constants from "expo-constants";
 
 const SmallProduct = ({ product, admin }) => {
+  const baseUrl = Constants.manifest.extra.baseUrl;
   const imagePath = product
-    ? "http://192.168.8.103:8000/" + product.image
+    ? baseUrl + product.image
     : "https://picsum.photos/200";
 
   return (

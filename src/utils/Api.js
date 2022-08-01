@@ -14,7 +14,6 @@ const api = async (endpoint, requestType, payload) => {
     // console.log(resp.data.body.products);
     return resp.data;
   } catch (err) {
-    console.log(err.response.data);
     const title = err.response.data ? err.response.data.header.title : "Error";
     const message = err.response.data
       ? err.response.data.header.message

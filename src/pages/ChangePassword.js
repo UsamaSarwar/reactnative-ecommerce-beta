@@ -14,7 +14,6 @@ const ChangePassword = ({ route }) => {
 
   useEffect(() => {
     dispatch(setReq({ property: "token", value: token }));
-    dispatch(init(3));
   }, []);
 
   return (
@@ -38,7 +37,11 @@ const ChangePassword = ({ route }) => {
         placeholderText="Retype New Password"
         required={true}
       />
-      <LargeBlackButton btnText="Confirm Change Password" changeTo="HomePage" />
+      <LargeBlackButton
+        btnText="Confirm Change Password"
+        changeTo="HomePage"
+        fields={3}
+      />
     </View>
   );
 };

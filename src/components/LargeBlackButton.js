@@ -28,24 +28,23 @@ const LargeBlackButton = ({ changeTo, btnText, flex, cartItem, fields }) => {
   const data = useSelector((state) => state.apiData.req);
   const isValid = useSelector((state) => {
     console.log("Validation Target: " + state.validation.target);
+    console.log("Validation Valid: " + state.validation.valid);
     return state.validation.target === state.validation.valid;
   });
 
   useEffect(() => {
     if (fields) {
       dispatch(init(fields));
-    } else {
-      dispatch(init(0));
     }
-  }, []);
+  }, [fields]);
 
   const onPress = async () => {
-    // Keyboard.dismiss;
+    Keyboard.dismiss();
     if (isValid) {
       setDisable(true);
       try {
         console.log(data);
-        if (endpoints[btnText]) {
+        if (endpoints[btnText] && (fields || cartItem)) {
           let resp = { data: {} };
           resp.data = await api(endpoints[btnText], "post", data);
           if (resp && resp.data.body) {

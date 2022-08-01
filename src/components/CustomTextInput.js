@@ -44,9 +44,7 @@ const CustomTextInput = ({ required, type, placeholderText }) => {
   useEffect(() => {
     if (
       type &&
-      type === "password" &&
-      type === "newPassword" &&
-      type === "prevPassword"
+      (type === "password" || type === "newPassword" || type === "prevPassword")
     ) {
       setIsPassword(true);
       setIsSecureEntry(true);

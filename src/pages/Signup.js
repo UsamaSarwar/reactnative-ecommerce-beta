@@ -57,7 +57,11 @@ const Signup = () => {
         required={false}
       />
 
-      <LargeBlackButton btnText="Sign Up" changeTo="goBack"></LargeBlackButton>
+      <LargeBlackButton
+        btnText="Sign Up"
+        changeTo="goBack"
+        fields={6}
+      ></LargeBlackButton>
       <Footer content="Already have an account?" link="Sign In"></Footer>
     </View>
   );
