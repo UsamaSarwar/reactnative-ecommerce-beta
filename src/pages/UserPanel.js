@@ -11,6 +11,7 @@ const UserPanel = ({ token, admin }) => {
   useEffect(() => {
     dispatch(init(0));
   }, []);
+
   return (
     <View style={styles.container}>
       <Header content="User Panel" flex={0.2} />

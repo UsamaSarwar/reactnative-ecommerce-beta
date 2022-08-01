@@ -24,9 +24,7 @@ const Login = () => {
   const navigation = useNavigation();
 
   useEffect(() => {
-    dispatch(resetValidation());
     dispatch(resetApi());
-    dispatch(init(2));
   }, []);
 
   const onPress = () => {
@@ -36,10 +34,7 @@ const Login = () => {
   return (
     <Pressable
       style={styles.container}
-      onPressIn={() => {
-        console.log(Keyboard.dismiss());
-        Keyboard.dismiss;
-      }}
+      onPressIn={Keyboard.dismiss}
       accessible={false}
     >
       <View style={styles.container}>
@@ -50,7 +45,7 @@ const Login = () => {
           placeholderText="Password"
           required={true}
         />
-        <LargeBlackButton btnText="LOGIN" changeTo="HomePage" />
+        <LargeBlackButton btnText="LOGIN" changeTo="HomePage" fields={2} />
         <Text onPress={onPress} style={styles.link}>
           Forgot your password?
         </Text>

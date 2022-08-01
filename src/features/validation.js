@@ -9,6 +9,7 @@ export const validationSlice = createSlice({
     init: (state, { payload }) => {
       state.target = payload;
       state.valid = 0;
+      state.error = false;
     },
     setValid: (state, { payload }) => {
       const value = Math.min(state.valid + 1, state.target);
@@ -18,18 +19,13 @@ export const validationSlice = createSlice({
       const value = Math.max(0, state.valid - 1);
       state.valid = value;
     },
-    resetValidation: (state, { payload }) => {
-      state.target = 0;
-      state.valid = 0;
-      state.error = false;
-    },
     toggleError: (state, { payload }) => {
       state.error = !state.error;
     },
   },
 });
 
-export const { init, setInvalid, setValid, resetValidation, toggleError } =
+export const { init, setInvalid, setValid, toggleError } =
   validationSlice.actions;
 
 export default validationSlice.reducer;

@@ -25,22 +25,10 @@ import ViewProduct from "./ViewProduct";
 
 // import Test from "./src/pages/Test";
 import Cart from "./Cart";
-import { useEffect } from "react";
-import { BackHandler } from "react-native";
-import { useDispatch } from "react-redux";
 
 const Stack = createStackNavigator();
 
 const Main = () => {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    return () =>
-      BackHandler.addEventListener("hardwareBackPress", () => {
-        dispatch(init(0));
-        console.log("I am mad");
-      });
-  }, []);
-
   return (
     <SafeAreaProvider>
       <NavigationContainer>

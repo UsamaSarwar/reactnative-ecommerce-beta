@@ -13,7 +13,7 @@ import {
   marginVertical,
 } from "../utils/Constants";
 import { useNavigation, CommonActions } from "@react-navigation/native";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import api from "../utils/Api";
 import { successMessages, endpoints } from "../utils/Constants";
@@ -21,22 +21,26 @@ import { setRes } from "../features/api";
 import { init, toggleError } from "../features/validation";
 import { addToCart } from "../features/cart";
 
-const LargeBlackButton = ({ changeTo, btnText, flex, cartItem }) => {
+const LargeBlackButton = ({ changeTo, btnText, flex, cartItem, fields }) => {
   const [disable, setDisable] = useState(false);
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const data = useSelector((state) => state.apiData.req);
   const isValid = useSelector((state) => {
-    console.log("STATE VALID" + state.validation.target);
+    console.log("Validation Target: " + state.validation.target);
     return state.validation.target === state.validation.valid;
   });
 
+  useEffect(() => {
+    if (fields) {
+      dispatch(init(fields));
+    } else {
+      dispatch(init(0));
+    }
+  }, []);
+
   const onPress = async () => {
-    Keyboard.dismiss;
-    console.log("isValid: " + isValid);
-    // if (!isValid) {
-    //   isValid = false;
-    // }
+    // Keyboard.dismiss;
     if (isValid) {
       setDisable(true);
       try {
@@ -56,6 +60,17 @@ const LargeBlackButton = ({ changeTo, btnText, flex, cartItem }) => {
         }
         if (changeTo == "goBack") {
           navigation.goBack();
+        } else if (changeTo == "HomePage") {
+          navigation.dispatch(
+            CommonActions.reset({
+              index: 0,
+              routes: [
+                {
+                  name: "HomePage",
+                },
+              ],
+            })
+          );
         } else if (changeTo == "deleteAccount") {
           navigation.dispatch(
             CommonActions.reset({

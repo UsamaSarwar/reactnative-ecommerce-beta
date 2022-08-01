@@ -1,8 +1,7 @@
 import axios from "axios";
-import { useDispatch } from "react-redux";
-import { resetResponseData } from "../features/user";
+import Constants from "expo-constants";
 
-const baseUrl = "http://192.168.8.103:8000/";
+const baseUrl = Constants.manifest.extra.baseUrl;
 
 const api = async (endpoint, requestType, payload) => {
   try {
