@@ -1,11 +1,43 @@
-import { Image, StyleSheet, TouchableOpacity, View } from "react-native";
+import {
+  Alert,
+  Image,
+  Platform,
+  PushNotificationIOS,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { useDispatch } from "react-redux";
+import { setReq } from "../features/api";
+import * as ImagePicker from "expo-image-picker";
+import { useState } from "react";
+import EmptyImage from "./icons/EmptyImage";
 
 const UploadImage = ({ flex }) => {
-  const onPress = () => {
-    console.log("HI");
-  };
+  const [img, setImg] = useState();
+  const dispatch = useDispatch();
+  const onPress = async () => {
+    const resp = await ImagePicker.launchImageLibraryAsync({
+      // aspect: [1, 1],
+    });
+    if (!resp.cancelled) {
+      const imgData = new FormData();
 
-  const img = require("../../assets/add-image.png");
+      //   imgData.append("photo", {
+      //     name: photo.fileName,
+      //     type: photo.type,
+      //     uri: photo.uri,
+      //   });
+
+      console.log(resp);
+      // dispatch(setReq({ property: "token", value: token }));
+      // dispatch(setReq({ property: "image", value: imgData }));
+      setImg(resp.uri);
+    } else {
+      console.log(resp);
+      Alert.alert("Error");
+    }
+  };
 
   return (
     <View
@@ -20,7 +52,8 @@ const UploadImage = ({ flex }) => {
         onPress={onPress}
         activeOpacity={0.5}
       >
-        <Image style={styles.image} source={img}></Image>
+        {img && <Image style={styles.image} source={{ uri: img }}></Image>}
+        {!img && <EmptyImage width={150} height={150} />}
       </TouchableOpacity>
     </View>
   );
