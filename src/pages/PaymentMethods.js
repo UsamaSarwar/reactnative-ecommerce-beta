@@ -82,7 +82,7 @@ const PaymentMethods = () => {
 
   return (
     <View style={styles.container}>
-      <Header content="Payment methods" />
+      <Header content="Payment methods" back={true} />
       <View style={styles.cashStyle}>
         <CheckBox
           title="Cash on delivery"

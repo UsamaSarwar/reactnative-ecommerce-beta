@@ -8,7 +8,11 @@ const UserPanel = () => {
   const admin = useSelector((state) => state.user.admin);
   return (
     <View style={styles.container}>
-      <Header content={admin ? "Admin Panel" : "User Panel"} flex={0.2} />
+      <Header
+        content={admin ? "Admin Panel" : "User Panel"}
+        flex={0.2}
+        back={true}
+      />
       <View style={styles.buttons}>
         <LargeBlackButton
           changeTo="ChangePassword"

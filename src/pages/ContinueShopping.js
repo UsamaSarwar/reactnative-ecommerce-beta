@@ -3,6 +3,11 @@ import LargeBlackButton from "../components/LargeBlackButton";
 import Bags from "../../assets/public/svgs/Bags";
 
 const ContinueShopping = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(clearCart());
+  }, []);
+
   return (
     <View style={styles.container}>
       <Bags />

@@ -10,7 +10,7 @@ const Cart = () => {
   const empty = useSelector((state) => state.cart.items.length === 0);
   return (
     <SafeAreaView style={styles.container}>
-      <Header flex={0} content="My Cart"></Header>
+      <Header flex={0} content="My Cart" back={true}></Header>
       <CartList></CartList>
       {!empty && <TotalAmmountLabel></TotalAmmountLabel>}
       {!empty && (

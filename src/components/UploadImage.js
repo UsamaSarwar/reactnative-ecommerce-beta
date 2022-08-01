@@ -18,24 +18,22 @@ const UploadImage = ({ flex }) => {
   const dispatch = useDispatch();
   const onPress = async () => {
     const resp = await ImagePicker.launchImageLibraryAsync({
-      // aspect: [1, 1],
+      aspect: [1, 1],
     });
+    console.log(resp);
+
     if (!resp.cancelled) {
       const imgData = new FormData();
 
-      //   imgData.append("photo", {
-      //     name: photo.fileName,
-      //     type: photo.type,
-      //     uri: photo.uri,
-      //   });
-
-      console.log(resp);
-      // dispatch(setReq({ property: "token", value: token }));
-      // dispatch(setReq({ property: "image", value: imgData }));
+      imgData.append("image", {
+        name: resp.fileName,
+        type: resp.type,
+        uri: resp.uri,
+      });
+      dispatch(setReq({ property: "image", value: imgData }));
       setImg(resp.uri);
     } else {
       console.log(resp);
-      Alert.alert("Error");
     }
   };
 

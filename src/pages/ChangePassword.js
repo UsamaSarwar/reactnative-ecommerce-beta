@@ -17,7 +17,7 @@ const ChangePassword = ({ route }) => {
 
   return (
     <View style={styles.container}>
-      <Header content="Change Password" flex={0.5} />
+      <Header content="Change Password" flex={0.5} back={true} />
 
       <CustomTextInput
         type="prevPassword"

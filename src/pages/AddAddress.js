@@ -6,7 +6,7 @@ import LargeBlackButton from "../components/LargeBlackButton";
 const AddAddress = () => {
   return (
     <View style={styles.container}>
-      <Header content="Add Shipping Address" />
+      <Header content="Add Shipping Address" back={true} />
       <CustomTextInput
         type="Name"
         placeholderText="Full name"

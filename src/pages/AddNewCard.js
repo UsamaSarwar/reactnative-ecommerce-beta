@@ -17,7 +17,7 @@ const AddNewCard = () => {
 
   return (
     <View style={styles.container}>
-      <Header content="Add new card" />
+      <Header content="Add new card" back={true} />
       <CustomTextInput
         type="name"
         placeholderText="Name on card"

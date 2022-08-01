@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 const DeleteAccount = ({ route }) => {
   return (
     <View style={styles.container}>
-      <Header content="Delete Account" flex={1} />
+      <Header content="Delete Account" flex={1} back={true} />
       <CustomTextInput type="password" required={true} />
       <LargeBlackButton
         changeTo="deleteAccount"

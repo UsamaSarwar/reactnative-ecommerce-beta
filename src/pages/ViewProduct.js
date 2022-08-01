@@ -124,7 +124,7 @@ const ViewProduct = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header content={data ? data.name : "Loading..."} flex={0} />
+      <Header content={data ? data.name : "Loading..."} flex={0} back={true} />
       <View flex={1}>
         <FlatList data={id} renderItem={renderItems}></FlatList>
       </View>

@@ -9,7 +9,7 @@ const ShippingAddress = () => {
 
   return (
     <View style={styles.container}>
-      <Header content="Shipping Addresses" />
+      <Header content="Shipping Addresses" back={true} />
       <AddressCard />
       <AddressCard />
       <AddressCard />

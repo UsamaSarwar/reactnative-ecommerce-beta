@@ -4,6 +4,8 @@ import Constants from "expo-constants";
 const baseUrl = Constants.manifest.extra.baseUrl;
 
 const api = async (endpoint, requestType, payload) => {
+  // console.log(Constants.manifest);
+  // console.log(baseUrl);
   try {
     const resp = await axios({
       method: requestType,

@@ -10,7 +10,7 @@ import LargeBlackButton from "../components/LargeBlackButton";
 const Checkout = () => {
   return (
     <View style={styles.container}>
-      <Header content="Checkout" />
+      <Header content="Checkout" back={true} />
       <View>
         <Text style={styles.address}>Shipping Address</Text>
         <ShippingAddressCard />

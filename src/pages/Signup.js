@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 const Signup = () => {
   return (
     <View style={styles.container}>
-      <Header content="Personal details" flex={2} />
+      <Header content="Personal details" flex={2} back={true} />
       <CustomTextInput
         type="email"
         placeholderText="Email address"
