@@ -1,6 +1,9 @@
 import { View, StyleSheet, Text } from "react-native";
 import LargeBlackButton from "../components/LargeBlackButton";
 import Bags from "../../assets/public/svgs/Bags";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { clearCart } from "../features/cart";
 
 const ContinueShopping = () => {
   return (
