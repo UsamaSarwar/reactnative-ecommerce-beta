@@ -83,7 +83,7 @@ const LargeBlackButton = ({ changeTo, btnText, flex, cartItem, fields }) => {
           );
         } else if (btnText === "ADD TO CART") {
           dispatch(addToCart(cartItem));
-        } else {
+        } else if (changeTo) {
           navigation.navigate(changeTo);
         }
         dispatch(init(0));

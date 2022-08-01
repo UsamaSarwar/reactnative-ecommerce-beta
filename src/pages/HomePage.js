@@ -53,7 +53,6 @@ const HomePage = ({ navigation }) => {
       dispatch(login(data));
       dispatch(resetApi());
     }
-    dispatch(init(0));
     loadData();
   }, []);
 
@@ -79,7 +78,8 @@ const HomePage = ({ navigation }) => {
       "hardwareBackPress",
       handleBackPress
     );
-    return () => backListner.remove;
+    return () =>
+      BackHandler.removeEventListener("hardwareBackPress", handleBackPress);
   }, [handleBackPress]);
 
   const renderItem = ({ item, index, separators }) => {
@@ -142,6 +142,7 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     paddingBottom: 180,
+    marginTop: 10,
   },
 
   head: {
@@ -151,7 +152,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 30,
-    backgroundColor: "#ffffff",
+    backgroundColor: "white",
     // justifyContent: "center",
     // alignItems: "stretch",
   },

@@ -2,19 +2,13 @@ import { StyleSheet, Text, View } from "react-native";
 import LargeBlackButton from "../components/LargeBlackButton";
 import Header from "../components/Header";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { init } from "../features/validation";
+import { useDispatch, useSelector } from "react-redux";
 
-const UserPanel = ({ token, admin }) => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(init(0));
-  }, []);
-
+const UserPanel = () => {
+  const admin = useSelector((state) => state.user.admin);
   return (
     <View style={styles.container}>
-      <Header content="User Panel" flex={0.2} />
+      <Header content={admin ? "Admin Panel" : "User Panel"} flex={0.2} />
       <View style={styles.buttons}>
         <LargeBlackButton
           changeTo="ChangePassword"
@@ -26,11 +20,13 @@ const UserPanel = ({ token, admin }) => {
           btnText="Delete Account"
           isValid={true}
         />
-        <LargeBlackButton
-          changeTo="AddProduct"
-          btnText="Add a Product"
-          isValid={true}
-        />
+        {admin && (
+          <LargeBlackButton
+            changeTo="AddProduct"
+            btnText="Add a Product"
+            isValid={true}
+          />
+        )}
       </View>
     </View>
   );

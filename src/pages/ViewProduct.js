@@ -17,12 +17,12 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import api from "../utils/Api";
 import Counter from "../components/Counter";
-import { init } from "../features/validation";
+import Constants from "expo-constants";
+import EmptyImage from "../components/icons/EmptyImage";
 
 const ViewProduct = ({ navigation }) => {
-  const dispatch = useDispatch();
-
   const id = [{ id: 0 }, { id: 1 }, { id: 2 }];
+  const admin = useSelector((state) => state.user.admin);
 
   const itemID = useSelector((state) => state.cart.selectedID);
   const quantity = useSelector((state) => {
@@ -48,15 +48,6 @@ const ViewProduct = ({ navigation }) => {
     }
   };
 
-  //Back Button Handling
-  useEffect(() => {
-    dispatch(init(0));
-    return () =>
-      BackHandler.removeEventListener("hardwareBackPress", () => {
-        dispatch(clearSelectedItem());
-      });
-  }, []);
-
   useEffect(() => {
     loadData();
   }, [itemID]);
@@ -64,13 +55,19 @@ const ViewProduct = ({ navigation }) => {
   const renderItems = ({ item }) => {
     switch (item.id) {
       case 0:
-        const imagePath = data
-          ? "http://192.168.8.103:8000/" + data.image
-          : "https://picsum.photos/200";
+        let imagePath;
+        if (data && data.image) {
+          imagePath = Constants.manifest.extra.baseUrl + data.image;
+        }
+
         return (
           <TouchableOpacity>
             <View style={styles.imageContainer}>
-              <Image style={styles.image} source={{ uri: imagePath }}></Image>
+              {data && data.image ? (
+                <Image style={styles.image} source={{ uri: imagePath }}></Image>
+              ) : (
+                <EmptyImage height={300} width={300} />
+              )}
             </View>
           </TouchableOpacity>
         );
@@ -132,7 +129,7 @@ const ViewProduct = ({ navigation }) => {
         <FlatList data={id} renderItem={renderItems}></FlatList>
       </View>
       <View style={[styles.floatingButton]}>
-        {quantity === 0 && (
+        {quantity === 0 && !admin && (
           <LargeBlackButton
             btnText="ADD TO CART"
             cartItem={
@@ -142,6 +139,7 @@ const ViewProduct = ({ navigation }) => {
                     name: data.name,
                     stock: data.stock,
                     price: data.price,
+                    image: data.image,
                     color: color,
                     size: size,
                   }
@@ -149,7 +147,16 @@ const ViewProduct = ({ navigation }) => {
             }
           ></LargeBlackButton>
         )}
-        {quantity > 0 && <Counter _id={itemID} count={quantity} big={true} />}
+        {quantity > 0 && !admin && (
+          <Counter _id={itemID} count={quantity} big={true} />
+        )}
+
+        {admin && (
+          <View style={styles.admin}>
+            <LargeBlackButton btnText={"Edit"} flex={1}></LargeBlackButton>
+            <LargeBlackButton btnText={"Delete"} flex={1}></LargeBlackButton>
+          </View>
+        )}
       </View>
     </SafeAreaView>
   );
@@ -210,15 +217,23 @@ const styles = StyleSheet.create({
     marginRight: 40,
     textAlign: "justify",
     marginTop: 15,
+    paddingBottom: 100,
 
     // backgroundColor: "honeydew",
   },
   floatingButton: {
+    position: "absolute",
+    bottom: 0,
     paddingBottom: 10,
     height: "10%",
+    width: "100%",
+    elevation: 5,
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "white",
+  },
+  admin: {
+    flexDirection: "row",
   },
 });
 

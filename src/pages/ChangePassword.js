@@ -5,7 +5,6 @@ import CustomTextInput from "../components/CustomTextInput";
 import { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
-import { init } from "../features/validation";
 import { setReq } from "../features/api";
 
 const ChangePassword = ({ route }) => {

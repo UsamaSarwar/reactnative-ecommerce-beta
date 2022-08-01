@@ -32,7 +32,8 @@ export const cartSlice = createSlice({
       }
     },
     clearCart: (state, { payload }) => {
-      state = initialState;
+      state.items = [];
+      state.ids = [];
     },
     selectItem: (state, { payload }) => {
       state.selectedID = payload;

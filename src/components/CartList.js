@@ -3,8 +3,9 @@ import { FlatList, Image, StyleSheet, Text, View } from "react-native";
 import { useSelector } from "react-redux";
 import Counter from "./Counter";
 import EmptyCart from "./icons/EmptyCart";
-
-const placeholderImg = require("../../assets/add-image.png");
+import Constants from "expo-constants";
+import EmptyImage from "./icons/EmptyImage";
+import { grey } from "../utils/Constants";
 
 const Item = ({
   title = "",
@@ -13,9 +14,16 @@ const Item = ({
   image = "",
   _id = 0,
 }) => {
+  const productImage = image ? Constants.manifest.extra.baseUrl + image : "";
   return (
     <View style={styles.item}>
-      <Image source={placeholderImg} style={styles.image}></Image>
+      {productImage ? (
+        <Image source={{ uri: productImage }} style={styles.image}></Image>
+      ) : (
+        <View style={styles.svg}>
+          <EmptyImage />
+        </View>
+      )}
       <View style={styles.itemCenter}>
         <Text style={styles.headerText}>{title}</Text>
         <Counter count={quantity} _id={_id}></Counter>
@@ -65,10 +73,8 @@ const styles = StyleSheet.create({
   },
   headerText: { fontSize: 22, marginLeft: 5 },
   image: {
-    // width: "30%",
-    // height: null,
-    aspectRatio: 1,
-    flex: 1,
+    width: 100,
+    height: 100,
   },
   item: {
     flexDirection: "row",
@@ -94,9 +100,16 @@ const styles = StyleSheet.create({
   },
   price: {
     fontSize: 20,
-    paddingVertical: 20,
+    paddingVertical: 10,
     paddingRight: 20,
     // fontWeight: "bold",
+  },
+  svg: {
+    justifyContent: "center",
+    alignItems: "center",
+    width: 100,
+    height: 100,
+    backgroundColor: "lightgrey",
   },
 });
 
