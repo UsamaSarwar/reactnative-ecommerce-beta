@@ -15,6 +15,7 @@ import Logout from "./icons/Logout";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../features/user";
 import { clearCart } from "../features/cart";
+import { init } from "../features/validation";
 
 const HomePageMenu = () => {
   const navigation = useNavigation();
@@ -57,6 +58,7 @@ const HomePageMenu = () => {
           onPress={() => {
             dispatch(logout());
             dispatch(clearCart());
+            dispatch(init(0));
             navigation.dispatch(
               CommonActions.reset({
                 index: 0,
