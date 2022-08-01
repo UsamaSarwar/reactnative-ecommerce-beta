@@ -4,6 +4,8 @@ import {
   View,
   FlatList,
   Text,
+  BackHandler,
+  ToastAndroid,
 } from "react-native";
 import SearchBar from "../components/SearchBar";
 import { useEffect, useState } from "react";
@@ -15,6 +17,8 @@ import { resetApi } from "../features/api";
 import HomePageMenu from "../components/HomePageMenu";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { selectItem } from "../features/cart";
+import { init } from "../features/validation";
+import { useNavigationState } from "@react-navigation/native";
 
 const HomePage = ({ navigation }) => {
   const filterData = [
@@ -28,6 +32,8 @@ const HomePage = ({ navigation }) => {
 
   const [searchPhrase, setSearchPhrase] = useState("");
   const [clicked, setClicked] = useState(false);
+  const [backPressCount, setBackPressCount] = useState(0);
+  const navIndex = useNavigationState((s) => s.index);
 
   const [productList, setProductList] = useState(null);
   const admin = useSelector((state) => state.user.admin);
@@ -47,9 +53,34 @@ const HomePage = ({ navigation }) => {
       dispatch(login(data));
       dispatch(resetApi());
     }
-
+    dispatch(init(0));
     loadData();
   }, []);
+
+  const handleBackPress = () => {
+    if (navIndex === 0) {
+      if (backPressCount === 0) {
+        setBackPressCount((prevCount) => prevCount + 1);
+        setTimeout(() => setBackPressCount(0), 2000);
+        ToastAndroid.show("Press one more time to exit", ToastAndroid.SHORT);
+      } else if (backPressCount === 1) {
+        BackHandler.exitApp();
+      }
+    } else {
+      dispatch(init(0));
+      navigation.goBack();
+    }
+
+    return true;
+  };
+
+  useEffect(() => {
+    const backListner = BackHandler.addEventListener(
+      "hardwareBackPress",
+      handleBackPress
+    );
+    return () => backListner.remove;
+  }, [handleBackPress]);
 
   const renderItem = ({ item, index, separators }) => {
     return (
