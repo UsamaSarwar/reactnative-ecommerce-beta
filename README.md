@@ -15,3 +15,18 @@ Open-Source React Native Ecommerce Cross Platform Mobile App
 - [X] Payment and Adress (UI)
 - [X] Checkout (UI)
 - [X] Cart
+
+
+
+## version 2022.08.01
+
+- [x] UI Tweaking
+- [x] Splash Screen
+- [x] Entered real product's data
+- [x] Image upload
+- [x] Icon added
+- [x] dynamic entring of data 
+- [x] navigation of black buttons improved
+- [x] homemenu UI tweaks
+
+[![Link](https://youtu.be/OwMoNIB99eA)
