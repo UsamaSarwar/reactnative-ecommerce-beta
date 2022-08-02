@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import {
   borderBlue,
   buttonFontSize,
@@ -14,13 +14,18 @@ const FacebookButton = (props) => {
     navigation.navigate("HomePage");
   };
   return (
-    <TouchableOpacity style={styles.button} onPress={onPress}>
-      <Text style={styles.text}>LOGIN FROM FACEBOOK</Text>
-    </TouchableOpacity>
+    <View style={styles.container}>
+      <TouchableOpacity style={styles.button} onPress={onPress}>
+        <Text style={styles.text}>LOGIN FROM FACEBOOK</Text>
+      </TouchableOpacity>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   button: {
     alignItems: "center",
     padding: 10,

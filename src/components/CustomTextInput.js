@@ -15,8 +15,11 @@ import {
   marginVertical,
 } from "../utils/Constants";
 import validateText from "../utils/Validation";
+import { setReq } from "../features/api";
+import { setValid, setInvalid, toggleError } from "../features/validation";
+import { useDispatch, useSelector } from "react-redux";
 
-const CustomTextInput = (props) => {
+const CustomTextInput = ({ required, type, placeholderText }) => {
   const [text, setText] = useState("");
   const [error, setError] = useState(false);
   const [isPassword, setIsPassword] = useState(false);
@@ -25,7 +28,10 @@ const CustomTextInput = (props) => {
   const [errorText, setErrorText] = useState("*This field is required");
 
   const anim = useRef(new Animated.Value(0)).current;
+  const dispatch = useDispatch();
+  const globalError = useSelector((state) => state.validation.error);
 
+  // Label animation
   useEffect(() => {
     Animated.timing(anim, {
       toValue: isFocused ? 1 : 0,
@@ -34,27 +40,46 @@ const CustomTextInput = (props) => {
     }).start();
   }, [isFocused]);
 
+  //Password field
   useEffect(() => {
-    if (props.type.toLowerCase() === "password") {
+    if (
+      type &&
+      (type === "password" || type === "newPassword" || type === "prevPassword")
+    ) {
       setIsPassword(true);
       setIsSecureEntry(true);
     }
+    setText("");
   }, []);
 
+  // Set Global error
   useEffect(() => {
-    setError(props.error);
-  }, [props.error]);
+    if (globalError) {
+      let result = validateText(text, type);
+      setError(result[0]);
+      setErrorText(result[1]);
+      dispatch(toggleError());
+    }
+  }, [globalError]);
 
   const onBlur = () => {
     if (text === "") {
       setIsFocused(false);
     }
 
-    if (props.required) {
-      let result = validateText(text, props.type);
-      props.setIsValid(!result[0]);
+    if (required) {
+      let result = validateText(text, type);
+      if (type) {
+        if (!result[0]) {
+          console.log("Set data for " + type);
+          dispatch(setReq({ property: type, value: text }));
+        }
+      }
+      result[0] ? dispatch(setInvalid()) : dispatch(setValid());
       setError(result[0]);
       setErrorText(result[1]);
+    } else {
+      dispatch(setReq({ property: type, value: text }));
     }
   };
 
@@ -67,7 +92,7 @@ const CustomTextInput = (props) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { marginTop: isFocused ? 10 : 0 }]}>
       <Animated.Text
         style={[
           styles.placeholderText,
@@ -91,7 +116,7 @@ const CustomTextInput = (props) => {
           },
         ]}
       >
-        {props.type}
+        {placeholderText}
       </Animated.Text>
       <View style={styles.eyeContainer}>
         <TextInput
@@ -131,11 +156,12 @@ const CustomTextInput = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginVertical: marginVertical,
+    paddingBottom: 5,
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
     alignSelf: "stretch",
+    // backgroundColor: "blue",
   },
   input: {
     flex: 1,
@@ -146,6 +172,7 @@ const styles = StyleSheet.create({
     paddingLeft: 5,
     borderBottomWidth: 0.5,
     borderBottomColor: grey,
+    // backgroundColor: "red",
   },
   inputError: {
     borderBottomColor: "red",
@@ -159,7 +186,6 @@ const styles = StyleSheet.create({
   error: {
     alignSelf: "flex-start",
     color: "red",
-    marginTop: 5,
     marginHorizontal: marginHorizontal,
   },
   eye: {

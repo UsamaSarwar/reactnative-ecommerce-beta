@@ -5,6 +5,7 @@ import {
   marginHorizontal,
   marginVertical,
   smallFontSize,
+  orange,
 } from "../utils/Constants";
 
 const Footer = (props) => {
@@ -24,21 +25,26 @@ const Footer = (props) => {
   };
 
   return (
-    <View style={styles.footer}>
-      <Text style={styles.text}>
-        {props.content}
-        <Text style={styles.link} onPress={onPress}>
-          {props.link}
+    <View style={styles.container}>
+      <View style={styles.footer}>
+        <Text style={styles.text}>
+          {props.content}
+          <Text style={styles.link} onPress={onPress}>
+            {props.link}
+          </Text>
         </Text>
-      </Text>
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  footer: {
+  container: {
+    color: orange,
     flex: 1.5,
     justifyContent: "flex-end",
+  },
+  footer: {
     marginBottom: marginVertical,
     alignSelf: "center",
   },
@@ -53,6 +59,7 @@ const styles = StyleSheet.create({
     fontSize: smallFontSize,
     fontWeight: "bold",
     textDecorationLine: "underline",
+    backgroundColor: orange,
   },
 });
 

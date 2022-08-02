@@ -11,7 +11,7 @@ const ForgotPassword = () => {
 
   return (
     <View style={styles.container}>
-      <Header content="Forgot password" />
+      <Header content="Forgot password" flex={2} back={true} />
       <Footer
         content="Please enter your email address. You will receive a link you will receive a link to create a new password via email"
         link=""
@@ -19,7 +19,7 @@ const ForgotPassword = () => {
       <CustomTextInput
         type="Email"
         required={true}
-        error={error}
+        toggleError={error}
         setIsValid={setIsValid}
       />
       <LargeBlackButton
@@ -35,7 +35,7 @@ const ForgotPassword = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    // backgroundColor: "#fff",
     alignItems: "stretch",
     justifyContent: "flex-start",
     marginBottom: 150,
