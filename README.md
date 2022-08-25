@@ -2,8 +2,10 @@
 
 Open-Source React Native Ecommerce Cross Platform Mobile App
 
+
 ## version 2022.08.24
 
+apk of the app can be downloaded by clicking [here](https://expo.dev/artifacts/d06efef2-7058-4ba7-926b-9efe1c38a42e).
 
 
 - [x]  Change inprogress to processing everywhere
