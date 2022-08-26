@@ -5,6 +5,10 @@ Open-Source React Native Ecommerce Cross Platform Mobile App
 
 ## version 2022.08.24
 
+App showcase can be found [here](https://drive.google.com/drive/folders/10fs1FZMSjqspuLKLWeYioZfN1fPconf1?usp=sharing)
+
+This mock up of the app can be found [here](https://docs.google.com/presentation/d/103zQ3nc40OVWCtvjqEi50ELg2bf1HVnB1lsXdGEIwvU/edit?usp=sharing) 
+
 apk of the app can be downloaded by clicking [here](https://expo.dev/artifacts/d06efef2-7058-4ba7-926b-9efe1c38a42e).
 
 
